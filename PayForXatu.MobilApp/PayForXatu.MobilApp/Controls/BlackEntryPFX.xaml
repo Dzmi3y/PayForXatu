@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:PayForXatu.MobilApp.Controls"
+             x:Class="PayForXatu.MobilApp.Controls.BlackEntryPFX"
+             x:Name="this">
+    <ContentView.Content>
+        <StackLayout>
+            <Frame BackgroundColor="#333" CornerRadius="20" Margin="0" Padding="10,1,10,1">
+                <controls:EntryPFX
+                BindingContext="{x:Reference this}"
+                Placeholder="{Binding Placeholder, Mode=TwoWay}"
+                Text="{Binding Text, Mode=TwoWay}"
+                IsPassword="{Binding IsPassword,Mode=TwoWay}"
+                Background="#333"
+                TextColor="#BDBDBD"
+                PlaceholderColor="#828282"
+                FontFamily="ChicagoRegular"
+                HeightRequest="50"
+                WidthRequest="300"
+                FontSize="Large"/>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

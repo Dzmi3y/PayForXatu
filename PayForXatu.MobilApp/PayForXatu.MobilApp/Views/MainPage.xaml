@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:PayForXatu.MobilApp.Controls"
+             x:Class="PayForXatu.MobilApp.Views.MainPage"
+             Title="{Binding Title}">
+
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <controls:BlackEntryPFX 
+            Placeholder="Your text" 
+            Text="fffff" 
+            VerticalOptions="Center"/>
+
+        <Label Text="Welcome to Xamarin.Forms!"
+       HorizontalOptions="Center"
+       VerticalOptions="CenterAndExpand"
+       FontSize="Large"
+       FontFamily="ChillerRegular" />
+
+    </StackLayout>
+
+</ContentPage>
