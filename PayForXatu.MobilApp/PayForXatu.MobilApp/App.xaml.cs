@@ -19,7 +19,8 @@ namespace PayForXatu.MobilApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            await NavigationService.NavigateAsync("LoginPage");
+            //await NavigationService.NavigateAsync("ModalPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -27,8 +28,11 @@ namespace PayForXatu.MobilApp
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<ModalPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignUpPage, SignUpViewModel>();
+            containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordViewModel>();
         }
     }
 }

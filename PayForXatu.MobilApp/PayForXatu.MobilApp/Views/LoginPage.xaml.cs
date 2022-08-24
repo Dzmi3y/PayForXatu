@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace PayForXatu.MobilApp.Views
@@ -10,5 +11,9 @@ namespace PayForXatu.MobilApp.Views
         {
             InitializeComponent();
         }
+
+
+    
+
     }
 }

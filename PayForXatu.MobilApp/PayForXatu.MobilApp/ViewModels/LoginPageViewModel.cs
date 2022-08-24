@@ -16,6 +16,9 @@ namespace PayForXatu.MobilApp.ViewModels
         ICommand _forgotPasswordTapCommand;
         bool _errorMessageIsVisible;
         string _errorMessageText;
+        string _email;
+        string _password;
+
         public LoginPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
@@ -36,6 +39,18 @@ namespace PayForXatu.MobilApp.ViewModels
         {
             get { return _errorMessageText; }
             set { SetProperty(ref _errorMessageText, value); }
+        }
+
+        public string Email
+        {
+            get { return _email; }
+            set { SetProperty(ref _email, value); }
+        }
+
+        public string Password
+        {
+            get { return _password; }
+            set { SetProperty(ref _password, value); }
         }
 
         public ICommand SignInTapCommand
@@ -60,22 +75,22 @@ namespace PayForXatu.MobilApp.ViewModels
 
         private async Task OnSignInTappedAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await _navigationService.NavigateAsync("MainPage",null,null,false);
         }
 
         private async Task OnGoogleSignInTappedAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await _navigationService.NavigateAsync("MainPage", null, null, false);
         }
 
         private async Task OnSignUpTappedAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await _navigationService.NavigateAsync("SignUpPage", null, null, false);
         }
 
         private async Task OnForgotPasswordTappedAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await _navigationService.NavigateAsync("ForgotPasswordPage", null, null, false);
         }
     }
 }

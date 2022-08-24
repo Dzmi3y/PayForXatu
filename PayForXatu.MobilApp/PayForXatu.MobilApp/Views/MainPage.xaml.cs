@@ -1,4 +1,5 @@
 ﻿using PayForXatu.MobilApp.Controls;
+using Xamarin.Forms;
 
 namespace PayForXatu.MobilApp.Views
 {

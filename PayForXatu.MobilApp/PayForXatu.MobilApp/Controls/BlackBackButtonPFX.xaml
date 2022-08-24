@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PayForXatu.MobilApp.Controls.BlackBackButtonPFX"
+             x:Name="this">
+    <ContentView.Content>
+        <Frame BackgroundColor="#333" CornerRadius="20" Margin="0" Padding="10,1,10,1">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Grid VerticalOptions="Center" HorizontalOptions="End">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="drawable/BackButtonIcon.png"/>
+                </Grid>
+                <Label
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Center"
+                    BindingContext="{x:Reference this}"
+                    Text="{Binding Text, Mode=TwoWay}"
+                    Background="#333"
+                    TextColor="#BDBDBD"
+                    FontFamily="ChicagoRegular"
+                    HeightRequest="50"
+                    FontSize="Large">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer  
+                        BindingContext="{x:Reference this}" 
+                        Command="{Binding TapCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

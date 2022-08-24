@@ -10,22 +10,22 @@ using Xamarin.Forms.Xaml;
 namespace PayForXatu.MobilApp.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BlackButtonPFX : ContentView
+    public partial class BlackBackButtonPFX : ContentView
     {
-        public BlackButtonPFX()
+        public BlackBackButtonPFX()
         {
             InitializeComponent();
         }
 
         public static readonly BindableProperty TextProperty = BindableProperty.Create(
-          "Text", typeof(string), typeof(string), "");
+        "Text", typeof(string), typeof(string), "");
 
         public string Text
         {
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
-        
+
         public static readonly BindableProperty TapCommandProperty = BindableProperty.Create(
          "TapCommand", typeof(ICommand), typeof(ICommand));
 
@@ -34,6 +34,5 @@ namespace PayForXatu.MobilApp.Controls
             get => (ICommand)GetValue(TapCommandProperty);
             set => SetValue(TapCommandProperty, value);
         }
-
     }
 }
