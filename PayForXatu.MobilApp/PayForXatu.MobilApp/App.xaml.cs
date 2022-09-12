@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.MobilApp.ViewModels;
 using PayForXatu.MobilApp.Views;
 using Prism;
@@ -6,6 +7,7 @@ using System;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Essentials.Interfaces;
 using Xamarin.Forms;
+//using PayForXatu.BusinessLogic;
 
 namespace PayForXatu.MobilApp
 {
@@ -26,6 +28,8 @@ namespace PayForXatu.MobilApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
+            containerRegistry.RegisterSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));
+           // containerRegistry.RegisterSingleton<IFirebaseRepository, FirebaseRepository>();
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<ModalPage>();
@@ -33,6 +37,7 @@ namespace PayForXatu.MobilApp
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<SignUpPage, SignUpViewModel>();
             containerRegistry.RegisterForNavigation<ForgotPasswordPage, ForgotPasswordViewModel>();
+
         }
     }
 }

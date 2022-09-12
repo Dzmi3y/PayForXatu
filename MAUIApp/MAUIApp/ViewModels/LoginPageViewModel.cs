@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
-namespace PayForXatu.MobilApp.ViewModels
+
+namespace PayForXatu.MAUIApp.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
@@ -78,22 +78,22 @@ namespace PayForXatu.MobilApp.ViewModels
 
         private async Task OnSignInTappedAsync()
         {
-            await _navigationService.NavigateAsync("MainPage",null,null,false);
+            await _navigationService.NavigateAsync("MainPage");
         }
 
         private async Task OnGoogleSignInTappedAsync()
         {
-            await _navigationService.NavigateAsync("MainPage", null, null, false);
+            await _navigationService.NavigateAsync("MainPage");
         }
 
         private async Task OnSignUpTappedAsync()
         {
-            await _navigationService.NavigateAsync("SignUpPage", null, null, false);
+            await _navigationService.NavigateAsync("SignUpPage");
         }
 
         private async Task OnForgotPasswordTappedAsync()
         {
-            await _navigationService.NavigateAsync("ForgotPasswordPage", null, null, false);
+            await _navigationService.NavigateAsync("ForgotPasswordPage");
         }
     }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PayForXatu.MAUIApp.Controls.BlackButtonPFX"
+             x:Name="this">
+  <ContentView.Content>
+    <Button
+      CornerRadius="20"
+      Background="#333"
+      BorderColor="White"
+      Margin="0"
+      BorderWidth="1"
+      BindingContext="{x:Reference this}"
+      Text="{Binding Text, Mode=TwoWay}"
+      TextColor="#BDBDBD"
+      FontFamily="ChicagoRegular"
+      HeightRequest="50"
+      FontSize="Large">
+      <Button.GestureRecognizers>
+        <TapGestureRecognizer  
+                        BindingContext="{x:Reference this}" 
+                        Command="{Binding TapCommand}"/>
+      </Button.GestureRecognizers>
+    </Button>
+  </ContentView.Content>
+</ContentView>

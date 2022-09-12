@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PayForXatu.MAUIApp.Controls.BlackBackButtonPFX"
+             x:Name="this">
+  <ContentView.Content>
+    <Frame BackgroundColor="#333"
+           CornerRadius="20" Margin="0"
+           Padding="10,0,10,4"
+           BindingContext="{x:Reference this}"
+           BorderColor="White"
+           HeightRequest="50">
+      <Frame.GestureRecognizers>
+        <TapGestureRecognizer  
+                        BindingContext="{x:Reference this}" 
+                        Command="{Binding TapCommand}"/>
+      </Frame.GestureRecognizers>
+      <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+        <Grid VerticalOptions="Center" HorizontalOptions="End">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+          </Grid.RowDefinitions>
+          <Image Source="back_button_image.png" Margin="0,0,10,0"/>
+        </Grid>
+        <Label
+                    HorizontalTextAlignment="Start"
+                    VerticalTextAlignment="Center"
+                    BindingContext="{x:Reference this}"
+                    Text="{Binding Text, Mode=TwoWay}"
+                    Background="#333"
+                    TextColor="#BDBDBD"
+                    FontFamily="ChicagoRegular"
+                    HeightRequest="40"
+                    FontSize="Large">
+        </Label>
+      </StackLayout>
+    </Frame>
+  </ContentView.Content>
+</ContentView>

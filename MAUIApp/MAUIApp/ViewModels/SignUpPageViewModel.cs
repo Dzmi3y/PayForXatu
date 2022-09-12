@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
-namespace PayForXatu.MobilApp.ViewModels
+
+namespace PayForXatu.MAUIApp.ViewModels
 {
-    public class SignUpViewModel:ViewModelBase
+    public class SignUpPageViewModel:ViewModelBase
     {
         ICommand _backButtonTapCommand;
         ICommand _okButtonTapCommand;
@@ -20,7 +20,7 @@ namespace PayForXatu.MobilApp.ViewModels
         string _password;
         string _confirmPassword;
 
-        public SignUpViewModel(INavigationService navigationService, IMemoryCache memoryCache)
+        public SignUpPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
             : base(navigationService)
         {
             _memoryCache = memoryCache;
@@ -73,7 +73,7 @@ namespace PayForXatu.MobilApp.ViewModels
 
         private async Task OnBackButtonTappedAsync()
         {
-            await _navigationService.NavigateAsync("LoginPage", null, null, false);
+            await _navigationService.NavigateAsync("LoginPage");
         }
 
         private void OnOkButtonTappedAsync()
@@ -83,7 +83,7 @@ namespace PayForXatu.MobilApp.ViewModels
 
         public async Task GoToLoginPageAsync()
         {
-            await _navigationService.NavigateAsync("LoginPage", null, null, false);
+            await _navigationService.NavigateAsync("LoginPage");
         }
     }
 }

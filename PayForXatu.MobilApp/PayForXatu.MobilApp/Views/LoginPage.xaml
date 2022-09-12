@@ -85,7 +85,7 @@
             <StackLayout Margin="0,50,0,0">
                 <controls:BlackButtonPFX TapCommand="{Binding GoogleSignInTapCommand}"  Text="Sign in with Google" /> 
             </StackLayout>
-
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
