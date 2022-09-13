@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
+using PayForXatu.MAUIApp.Resources;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -101,7 +102,28 @@ namespace PayForXatu.MAUIApp.ViewModels
             }
             else
             {
-                ErrorMessageText = serviceResponse.Message;
+                switch (serviceResponse.Status)
+                {
+                    case SignUpResponseStatusEnum.FieldsAreNotFilledIn:
+                        ErrorMessageText = AppRes.FieldsAreNotFilledIn;
+                        break;
+
+                    case SignUpResponseStatusEnum.IncorrectEmail:
+                        ErrorMessageText = AppRes.IncorrectEmail;
+                        break;
+
+                    case SignUpResponseStatusEnum.PasswordsDoNotMatch:
+                        ErrorMessageText = AppRes.PasswordsDoNotMatch;
+                        break;
+
+                    case SignUpResponseStatusEnum.UserAlreadyExists:
+                        ErrorMessageText = AppRes.UserAlreadyExists;
+                        break;
+
+                    case SignUpResponseStatusEnum.Exception:
+                        ErrorMessageText = serviceResponse.Message;
+                        break;
+                }
             }
         }
 

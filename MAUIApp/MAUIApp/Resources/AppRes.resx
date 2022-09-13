@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FieldsAreNotFilledIn" xml:space="preserve">
+    <value>All fields must be filled in</value>
+  </data>
   <data name="ForgotPasswordText" xml:space="preserve">
     <value>Email was sent to you email address</value>
   </data>
+  <data name="IncorrectEmail" xml:space="preserve">
+    <value>Incorrect email</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords don't match</value>
+  </data>
   <data name="SignUpText" xml:space="preserve">
     <value>Email for confirmation was sent to your email address</value>
+  </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>User with this email already exists</value>
   </data>
 </root>

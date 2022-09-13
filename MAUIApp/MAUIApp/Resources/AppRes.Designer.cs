@@ -61,6 +61,15 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All fields must be filled in.
+        /// </summary>
+        internal static string FieldsAreNotFilledIn {
+            get {
+                return ResourceManager.GetString("FieldsAreNotFilledIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email was sent to you email address.
         /// </summary>
         internal static string ForgotPasswordText {
@@ -70,11 +79,38 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect email.
+        /// </summary>
+        internal static string IncorrectEmail {
+            get {
+                return ResourceManager.GetString("IncorrectEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords don&apos;t match.
+        /// </summary>
+        internal static string PasswordsDoNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email for confirmation was sent to your email address.
         /// </summary>
         internal static string SignUpText {
             get {
                 return ResourceManager.GetString("SignUpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with this email already exists.
+        /// </summary>
+        internal static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
             }
         }
     }

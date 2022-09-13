@@ -19,10 +19,11 @@ namespace PayForXatu.BusinessLogic.Services
             _firebaseRepository = firebaseRepository;
         }
 
-        public async Task<ServiceResponseDTO> SignUpAsync(SignUpUserDTO signUpUser)
+        public async Task<SignUpResponseDTO> SignUpAsync(SignUpUserDTO signUpUser)
         {
-            var serviceResponseDTO = new ServiceResponseDTO();
+            var serviceResponseDTO = new SignUpResponseDTO();
             serviceResponseDTO.IsSuccess = true;
+            serviceResponseDTO.Status = SignUpResponseStatusEnum.Success;
             try
             {
                 if (string.IsNullOrEmpty(signUpUser.Password) ||
@@ -30,21 +31,21 @@ namespace PayForXatu.BusinessLogic.Services
                     string.IsNullOrEmpty(signUpUser.Email))
                 {
                     serviceResponseDTO.IsSuccess = false;
-                    serviceResponseDTO.Message = "All fields must be filled in";
-                    return serviceResponseDTO;
+                    serviceResponseDTO.Status = SignUpResponseStatusEnum.FieldsAreNotFilledIn; 
+                    return serviceResponseDTO;  
                 }
 
                 if (!IsValidEmail(signUpUser))
                 {
                     serviceResponseDTO.IsSuccess = false;
-                    serviceResponseDTO.Message = "Incorrect email";
+                    serviceResponseDTO.Status = SignUpResponseStatusEnum.IncorrectEmail;
                     return serviceResponseDTO;
                 }
 
                 if (signUpUser.Password != signUpUser.ConfirmPassword)
                 {
                     serviceResponseDTO.IsSuccess = false;
-                    serviceResponseDTO.Message = "Passwords don't match";
+                    serviceResponseDTO.Status = SignUpResponseStatusEnum.PasswordsDoNotMatch;
                     return serviceResponseDTO;
                 }
 
@@ -52,7 +53,7 @@ namespace PayForXatu.BusinessLogic.Services
                 if (userList.Any(u => u.Email == signUpUser.Email))
                 {
                     serviceResponseDTO.IsSuccess = false;
-                    serviceResponseDTO.Message = "User with this email already exists";
+                    serviceResponseDTO.Status = SignUpResponseStatusEnum.UserAlreadyExists;
                     return serviceResponseDTO;
                 }
 
@@ -72,6 +73,7 @@ namespace PayForXatu.BusinessLogic.Services
             catch (Exception ex)
             {
                 serviceResponseDTO.IsSuccess=false;
+                serviceResponseDTO.Status = SignUpResponseStatusEnum.Exception;
                 serviceResponseDTO.Message = ex.Message;
                 return serviceResponseDTO;
             }
@@ -107,6 +109,6 @@ namespace PayForXatu.BusinessLogic.Services
 
     public interface ISignUpService
     {
-        Task<ServiceResponseDTO> SignUpAsync(SignUpUserDTO signUpUser);
+        Task<SignUpResponseDTO> SignUpAsync(SignUpUserDTO signUpUser);
     }
 }
