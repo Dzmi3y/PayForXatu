@@ -63,11 +63,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
     <None Remove="Resources\Fonts\chicago_regular.ttf" />
     <None Remove="Resources\Fonts\chiller_regular.ttf" />
     <None Remove="Resources\Fonts\digital7_mono.ttf" />
     <None Remove="Resources\Images\back_button_image.png" />
     <None Remove="Resources\Splash\splash.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,7 +90,13 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.191-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PayForXatu.BusinessLogic\PayForXatu.BusinessLogic.csproj" />
+    <ProjectReference Include="..\..\PayForXatu.Database\PayForXatu.Database.csproj" />
   </ItemGroup>
 
   <ItemGroup>

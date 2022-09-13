@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using PayForXatu.Database;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,16 @@ namespace PayForXatu.MAUIApp.ViewModels
         ICommand _signUpTapCommand;
         ICommand _forgotPasswordTapCommand;
         IMemoryCache _memoryCache;
+        IFirebaseRepository _firebaseRepository;
         bool _errorMessageIsVisible;
         string _errorMessageText;
         string _email;
         string _password;
 
-        public LoginPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
+        public LoginPageViewModel(INavigationService navigationService, IMemoryCache memoryCache, IFirebaseRepository firebaseRepository)
             : base(navigationService)
         {
+            _firebaseRepository = firebaseRepository;
             _memoryCache = memoryCache;
             _signInTapCommand = new Command(async ()=>await OnSignInTappedAsync());
             _googleSignInTapCommand = new Command(async () => await OnGoogleSignInTappedAsync());

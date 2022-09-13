@@ -1,6 +1,11 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using PayForXatu.BusinessLogic.Services;
+using PayForXatu.Database;
 using PayForXatu.MAUIApp.ViewModels;
 using PayForXatu.MAUIApp.Views;
+using Prism;
+using Prism.DryIoc;
 
 namespace PayForXatu.MAUIApp
 {
@@ -24,13 +29,10 @@ namespace PayForXatu.MAUIApp
                          .RegisterInstance(SemanticScreenReader.Default);
             containerRegistry.RegisterForNavigation<ModalPage>();
 
+            containerRegistry.RegisterScoped<ISignUpService, SignUpService>();
+
             containerRegistry.RegisterSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));
-            // containerRegistry.RegisterSingleton<IFirebaseRepository, FirebaseRepository>();
-
-            //containerRegistry.RegisterForNavigation<NavigationPage>();
-            //containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
-            
-
+            containerRegistry.RegisterSingleton<IFirebaseRepository,FirebaseRepository>();
         }
     }
 }

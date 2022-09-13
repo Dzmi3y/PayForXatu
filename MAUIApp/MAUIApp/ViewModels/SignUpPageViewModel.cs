@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using PayForXatu.BusinessLogic.DTOs;
+using PayForXatu.BusinessLogic.Services;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -14,18 +16,21 @@ namespace PayForXatu.MAUIApp.ViewModels
         ICommand _backButtonTapCommand;
         ICommand _okButtonTapCommand;
         IMemoryCache _memoryCache;
+        ISignUpService _authService;
         bool _errorMessageIsVisible;
         string _errorMessageText;
         string _email;
         string _password;
         string _confirmPassword;
 
-        public SignUpPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
+        public SignUpPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
+            ISignUpService authService)
             : base(navigationService)
         {
+            _authService = authService;
             _memoryCache = memoryCache;
             _backButtonTapCommand = new Command(async () => await OnBackButtonTappedAsync());
-            _okButtonTapCommand = new Command(OnOkButtonTappedAsync);
+            _okButtonTapCommand = new Command(async () => await OnOkButtonTappedAsync());
         }
 
 
@@ -76,9 +81,28 @@ namespace PayForXatu.MAUIApp.ViewModels
             await _navigationService.NavigateAsync("LoginPage");
         }
 
-        private void OnOkButtonTappedAsync()
+        private async Task OnOkButtonTappedAsync()
         {
-            OpenModal.Invoke();
+
+            var signUpUser = new SignUpUserDTO()
+            {
+                Email = _email,
+                Password = _password,
+                ConfirmPassword = _confirmPassword,
+            };
+
+            var serviceResponse = await _authService.SignUpAsync(signUpUser);
+
+            ErrorMessageIsVisible = !serviceResponse.IsSuccess;
+
+            if (serviceResponse.IsSuccess)
+            {
+                OpenModal.Invoke();
+            }
+            else
+            {
+                ErrorMessageText = serviceResponse.Message;
+            }
         }
 
         public async Task GoToLoginPageAsync()

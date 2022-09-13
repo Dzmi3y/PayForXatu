@@ -8,7 +8,7 @@ namespace PayForXatu.Database.Models
 {
     public class User : BaseEntity
     {
-        public string Emails { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsEmailConfirmed { get; set; } 
     }

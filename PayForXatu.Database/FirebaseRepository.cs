@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
+using Microsoft.Extensions.Configuration;
 using PayForXatu.Database.Models;
 using System;
 using System.Collections.Generic;
@@ -9,24 +10,25 @@ using System.Threading.Tasks;
 
 namespace PayForXatu.Database
 {
-    public class FirebaseRepository
+    public class FirebaseRepository: IFirebaseRepository
     {
-        const string auth = "e4bjVfPd4buchhYQSWx7VG72cTh9IwuRK0af0lYN";
-        const string FirebaseDatabaseUrl = "https://testdbproj-866f2-default-rtdb.europe-west1.firebasedatabase.app/";
         readonly FirebaseClient firebaseClient;
 
-        public FirebaseRepository()
+        public FirebaseRepository(IConfiguration config)
         {
+            var firebaseDatabaseToken = config.GetRequiredSection("FirebaseDatabaseToken").Value;
+            var firebaseDatabaseUrl = config.GetRequiredSection("FirebaseDatabaseUrl").Value;
+
             FirebaseOptions fbOptions = new FirebaseOptions()
             {
-                AuthTokenAsyncFactory = () => Task.FromResult(auth)
+                AuthTokenAsyncFactory = () => Task.FromResult(firebaseDatabaseToken)
             };
 
-            firebaseClient = new FirebaseClient(FirebaseDatabaseUrl, fbOptions);
+            firebaseClient = new FirebaseClient(firebaseDatabaseUrl, fbOptions);
 
         }
 
-        public async Task Add<T>(T newChild)
+        public async Task AddAsync<T>(T newChild)
         {
             string childName = GetChildNameByType(typeof(T));
             await firebaseClient
@@ -51,14 +53,14 @@ namespace PayForXatu.Database
             return result;
         }
 
-        private async Task<FirebaseObject<T>?> GetFirebaseObjectAsync<T>(T updatedChild) where T : BaseEntity
+        public async Task<FirebaseObject<T>?> GetFirebaseObjectAsync<T>(T updatedChild) where T : BaseEntity
         {
             var childs = await GetFirebaseObjectsAsync<T>();
             return childs.FirstOrDefault(
                 x => ((x.Object as BaseEntity).Id == (updatedChild as BaseEntity).Id));
         }
 
-        public async Task Update<T>(T updatedChild) where T : BaseEntity
+        public async Task UpdateAsync<T>(T updatedChild) where T : BaseEntity
         {
             string childName = GetChildNameByType(typeof(T));
             var child = await GetFirebaseObjectAsync(updatedChild);
@@ -71,7 +73,7 @@ namespace PayForXatu.Database
             }
         }
 
-        private async Task<FirebaseObject<T>?> GetFirebaseObjectByIdAsync<T>(Guid id) where T : BaseEntity
+        public async Task<FirebaseObject<T>?> GetFirebaseObjectByIdAsync<T>(Guid id) where T : BaseEntity
         {
             var childs = await GetFirebaseObjectsAsync<T>();
             return childs.FirstOrDefault(
@@ -91,7 +93,7 @@ namespace PayForXatu.Database
             }
         }
 
-        private string GetChildNameByType(Type t)
+        public string GetChildNameByType(Type t)
         {
             if (t == null)
                 throw new Exception("Child shouldn't to be equal null");
@@ -105,13 +107,13 @@ namespace PayForXatu.Database
 
     public interface IFirebaseRepository
     {
-        Task Add<T>(T newChild);
+        Task AddAsync<T>(T newChild);
         Task<IReadOnlyCollection<FirebaseObject<T>>> GetFirebaseObjectsAsync<T>();
         Task<List<T>> GetListOfChildsAsync<T>();
-        Task<FirebaseObject<T>?> GetFirebaseObjectAsync<T>(T updatedChild);
-        Task Update<T>(T updatedChild);
-        Task<FirebaseObject<T>?> GetFirebaseObjectByIdAsync<T>(Guid id);
-        Task DeleteAsync<T>(Guid id);
+        Task<FirebaseObject<T>?> GetFirebaseObjectAsync<T>(T updatedChild) where T : BaseEntity;
+        Task UpdateAsync<T>(T updatedChild) where T : BaseEntity;
+        Task<FirebaseObject<T>?> GetFirebaseObjectByIdAsync<T>(Guid id) where T : BaseEntity;
+        Task DeleteAsync<T>(Guid id) where T : BaseEntity;
         string GetChildNameByType(Type t);
     }
 }
