@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EmailIsEmpty" xml:space="preserve">
+    <value>Email must be filled in</value>
+  </data>
+  <data name="EmailNotVerified" xml:space="preserve">
+    <value>Email not verified</value>
+  </data>
   <data name="FieldsAreNotFilledIn" xml:space="preserve">
     <value>All fields must be filled in</value>
   </data>
   <data name="ForgotPasswordText" xml:space="preserve">
     <value>Email was sent to you email address</value>
   </data>
+  <data name="GoogleAccountNotFound" xml:space="preserve">
+    <value>Google account not found</value>
+  </data>
   <data name="IncorrectEmail" xml:space="preserve">
     <value>Incorrect email</value>
+  </data>
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
+    <value>Invalid email or password</value>
   </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Passwords don't match</value>

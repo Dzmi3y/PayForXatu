@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Firebase.Auth;
+using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.MAUIApp.Resources;
@@ -84,7 +85,6 @@ namespace PayForXatu.MAUIApp.ViewModels
 
         private async Task OnOkButtonTappedAsync()
         {
-
             var signUpUser = new SignUpUserDTO()
             {
                 Email = _email,

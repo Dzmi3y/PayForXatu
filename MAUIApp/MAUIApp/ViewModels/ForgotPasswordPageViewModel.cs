@@ -1,30 +1,27 @@
-﻿using PayForXatu.MAUIApp.Views;
-using Prism.Navigation;
-using Prism.Navigation.Xaml;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PayForXatu.BusinessLogic.DTOs;
+using PayForXatu.BusinessLogic.Services;
+using PayForXatu.MAUIApp.Resources;
 using System.Windows.Input;
 
 
 namespace PayForXatu.MAUIApp.ViewModels
 {
-    public class ForgotPasswordPageViewModel:ViewModelBase
+    public class ForgotPasswordPageViewModel : ViewModelBase
     {
         ICommand _backButtonTapCommand;
         ICommand _resetPasswordButtonTapCommand;
+        IForgotPasswordService _forgotPasswordService;
         bool _errorMessageIsVisible;
         string _errorMessageText;
         string _email;
 
-        public ForgotPasswordPageViewModel(INavigationService navigationService)
+        public ForgotPasswordPageViewModel(INavigationService navigationService, IForgotPasswordService forgotPasswordService)
             : base(navigationService)
         {
+            _forgotPasswordService = forgotPasswordService;
             _backButtonTapCommand = new Command(async () => await BackButtonTappedAsync());
-            _resetPasswordButtonTapCommand = new Command(ResetPasswordButtonTapped);
+            _resetPasswordButtonTapCommand = new Command(async () => await ResetPasswordButtonTappedAsync());
         }
-
 
         public bool ErrorMessageIsVisible
         {
@@ -61,9 +58,33 @@ namespace PayForXatu.MAUIApp.ViewModels
             await _navigationService.NavigateAsync("LoginPage");
         }
 
-        private void ResetPasswordButtonTapped()
+        private async Task ResetPasswordButtonTappedAsync()
         {
-            OpenModal.Invoke();
+            ErrorMessageIsVisible = false;
+            var forgotPasswordDTO = await _forgotPasswordService.ForgotPasswordAsync(Email);
+
+            if (forgotPasswordDTO.IsSuccess)
+            {
+                OpenModal.Invoke();
+            }
+            else
+            {
+                ErrorMessageIsVisible = true;
+                switch (forgotPasswordDTO.Status)
+                {
+                    case ForgotPasswordStatusEnum.EmailIsEmpty:
+                        ErrorMessageText = AppRes.EmailIsEmpty;
+                        break;
+
+                    case ForgotPasswordStatusEnum.IncorrectEmail:
+                        ErrorMessageText = AppRes.IncorrectEmail;
+                        break;
+
+                    default:
+                        ErrorMessageText = AppRes.IncorrectEmail;
+                        break;
+                }
+            }
         }
 
         public async Task GoToLoginPageAsync()

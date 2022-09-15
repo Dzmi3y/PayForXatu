@@ -64,11 +64,18 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Platforms\Android\google-services.json" />
     <None Remove="Resources\Fonts\chicago_regular.ttf" />
     <None Remove="Resources\Fonts\chiller_regular.ttf" />
     <None Remove="Resources\Fonts\digital7_mono.ttf" />
     <None Remove="Resources\Images\back_button_image.png" />
     <None Remove="Resources\Splash\splash.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="Platforms\Android\google-services.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </CodeAnalysisDictionary>
   </ItemGroup>
 
   <ItemGroup>
@@ -89,6 +96,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
+    <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.191-beta" />
@@ -146,6 +154,18 @@
     <MauiXaml Update="Views\SignUpPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+    <PackageReference Include="Xamarin.GooglePlayServices.Auth">
+      <Version>120.2.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Auth.Base">
+      <Version>118.0.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Base">
+      <Version>118.1.0</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

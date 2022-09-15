@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Firebase.Auth;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.Database;
 using PayForXatu.Database.Models;
@@ -13,10 +15,10 @@ namespace PayForXatu.BusinessLogic.Services
 {
     public class SignUpService : ISignUpService
     {
-        private IFirebaseRepository _firebaseRepository;
-        public SignUpService(IFirebaseRepository firebaseRepository)
+        private string _webApiKey;
+        public SignUpService(IConfiguration config)
         {
-            _firebaseRepository = firebaseRepository;
+            _webApiKey = config.GetRequiredSection("WebApiKey").Value;
         }
 
         public async Task<SignUpResponseDTO> SignUpAsync(SignUpUserDTO signUpUser)
@@ -31,8 +33,8 @@ namespace PayForXatu.BusinessLogic.Services
                     string.IsNullOrEmpty(signUpUser.Email))
                 {
                     serviceResponseDTO.IsSuccess = false;
-                    serviceResponseDTO.Status = SignUpResponseStatusEnum.FieldsAreNotFilledIn; 
-                    return serviceResponseDTO;  
+                    serviceResponseDTO.Status = SignUpResponseStatusEnum.FieldsAreNotFilledIn;
+                    return serviceResponseDTO;
                 }
 
                 if (!IsValidEmail(signUpUser))
@@ -49,36 +51,27 @@ namespace PayForXatu.BusinessLogic.Services
                     return serviceResponseDTO;
                 }
 
-                var userList = await _firebaseRepository.GetListOfChildsAsync<User>();
-                if (userList.Any(u => u.Email == signUpUser.Email))
+                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(_webApiKey));
+                var auth = await authProvider.CreateUserWithEmailAndPasswordAsync(signUpUser.Email, signUpUser.Password);
+                await authProvider.SendEmailVerificationAsync(auth);
+                return serviceResponseDTO;
+            }
+            catch (FirebaseAuthException ex)
+            {
+                switch (ex.Reason)
                 {
-                    serviceResponseDTO.IsSuccess = false;
-                    serviceResponseDTO.Status = SignUpResponseStatusEnum.UserAlreadyExists;
-                    return serviceResponseDTO;
+                    case AuthErrorReason.EmailExists:
+                        serviceResponseDTO.IsSuccess = false;
+                        serviceResponseDTO.Status = SignUpResponseStatusEnum.UserAlreadyExists;
+                        break;
+                    default:
+                        serviceResponseDTO.IsSuccess = false;
+                        serviceResponseDTO.Status = SignUpResponseStatusEnum.IncorrectEmail;
+                        break;
                 }
 
-                var passwordHasher = new PasswordHasher<User>();
-
-                var user = new User()
-                {
-                    Id = Guid.NewGuid(),
-                    IsEmailConfirmed = false,
-                    Email = signUpUser.Email
-                };
-                user.PasswordHash = passwordHasher.HashPassword(user, signUpUser.Password);
-                await _firebaseRepository.AddAsync(user);
-
                 return serviceResponseDTO;
             }
-            catch (Exception ex)
-            {
-                serviceResponseDTO.IsSuccess=false;
-                serviceResponseDTO.Status = SignUpResponseStatusEnum.Exception;
-                serviceResponseDTO.Message = ex.Message;
-                return serviceResponseDTO;
-            }
-
-
         }
 
         private static bool IsValidEmail(SignUpUserDTO signUpUser)

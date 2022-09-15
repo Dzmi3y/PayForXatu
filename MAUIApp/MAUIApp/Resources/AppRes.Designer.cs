@@ -61,6 +61,24 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email must be filled in.
+        /// </summary>
+        internal static string EmailIsEmpty {
+            get {
+                return ResourceManager.GetString("EmailIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email not verified.
+        /// </summary>
+        internal static string EmailNotVerified {
+            get {
+                return ResourceManager.GetString("EmailNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All fields must be filled in.
         /// </summary>
         internal static string FieldsAreNotFilledIn {
@@ -79,11 +97,29 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Google account not found.
+        /// </summary>
+        internal static string GoogleAccountNotFound {
+            get {
+                return ResourceManager.GetString("GoogleAccountNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect email.
         /// </summary>
         internal static string IncorrectEmail {
             get {
                 return ResourceManager.GetString("IncorrectEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email or password.
+        /// </summary>
+        internal static string InvalidEmailOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidEmailOrPassword", resourceCulture);
             }
         }
         
