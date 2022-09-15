@@ -1,11 +1,14 @@
-﻿namespace PayForXatu.MAUIApp.ViewModels
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace PayForXatu.MAUIApp.ViewModels
 {
-    public class MainPageViewModel : BindableBase
+    public class MainPageViewModel : ViewModelBase
     {
         private ISemanticScreenReader _screenReader { get; }
         private int _count;
 
-        public MainPageViewModel(ISemanticScreenReader screenReader)
+        public MainPageViewModel(ISemanticScreenReader screenReader, INavigationService navigationService, IMemoryCache memoryCache)
+            :base(navigationService, memoryCache)
         {
             _screenReader = screenReader;
             CountCommand = new DelegateCommand(OnCountCommandExecuted);

@@ -1,4 +1,5 @@
-﻿using PayForXatu.BusinessLogic.DTOs;
+﻿using Microsoft.Extensions.Caching.Memory;
+using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.MAUIApp.Resources;
 using System.Windows.Input;
@@ -15,8 +16,9 @@ namespace PayForXatu.MAUIApp.ViewModels
         string _errorMessageText;
         string _email;
 
-        public ForgotPasswordPageViewModel(INavigationService navigationService, IForgotPasswordService forgotPasswordService)
-            : base(navigationService)
+        public ForgotPasswordPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
+            IForgotPasswordService forgotPasswordService)
+            : base(navigationService, memoryCache)
         {
             _forgotPasswordService = forgotPasswordService;
             _backButtonTapCommand = new Command(async () => await BackButtonTappedAsync());

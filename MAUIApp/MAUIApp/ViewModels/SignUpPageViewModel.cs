@@ -17,7 +17,6 @@ namespace PayForXatu.MAUIApp.ViewModels
     {
         ICommand _backButtonTapCommand;
         ICommand _okButtonTapCommand;
-        IMemoryCache _memoryCache;
         ISignUpService _authService;
         bool _errorMessageIsVisible;
         string _errorMessageText;
@@ -25,14 +24,14 @@ namespace PayForXatu.MAUIApp.ViewModels
         string _password;
         string _confirmPassword;
 
-        public SignUpPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
-            ISignUpService authService)
-            : base(navigationService)
+        public SignUpPageViewModel(INavigationService navigationService, 
+            ISignUpService authService,IMemoryCache memoryCache)
+            : base(navigationService,memoryCache)
         {
             _authService = authService;
-            _memoryCache = memoryCache;
             _backButtonTapCommand = new Command(async () => await OnBackButtonTappedAsync());
             _okButtonTapCommand = new Command(async () => await OnOkButtonTappedAsync());
+
         }
 
 

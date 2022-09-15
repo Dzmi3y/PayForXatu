@@ -1,17 +1,7 @@
-﻿using Firebase.Auth;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.Database;
-using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Web;
-using Firebase;
-using Firebase.Database;
 using PayForXatu.BusinessLogic;
-using System.Xml.Linq;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.MAUIApp.Resources;
@@ -24,8 +14,6 @@ namespace PayForXatu.MAUIApp.ViewModels
         ICommand _googleSignInTapCommand;
         ICommand _signUpTapCommand;
         ICommand _forgotPasswordTapCommand;
-        IMemoryCache _memoryCache;
-        IFirebaseRepository _firebaseRepository;
         IGoogleManager _googleManager;
         ILogInService _logInService;
         bool _errorMessageIsVisible;
@@ -35,13 +23,11 @@ namespace PayForXatu.MAUIApp.ViewModels
 
 
         public LoginPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
-            IFirebaseRepository firebaseRepository, IGoogleManager googleManager, ILogInService logInService)
-            : base(navigationService)
+            IGoogleManager googleManager, ILogInService logInService)
+            : base(navigationService, memoryCache)
         {
             _logInService = logInService;
             _googleManager = googleManager;
-            _firebaseRepository = firebaseRepository;
-            _memoryCache = memoryCache;
             _signInTapCommand = new Command(async () => await OnSignInTappedAsync());
             _googleSignInTapCommand = new Command(OnGoogleSignInTapped);
             _signUpTapCommand = new Command(async () => await OnSignUpTappedAsync());
@@ -103,6 +89,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
             if (logInResponseDTO.IsSuccess)
             {
+                SetCurrentUser(logInResponseDTO.CurrentUser);
                 await _navigationService.NavigateAsync("MainPage");
             }
             else
@@ -171,6 +158,8 @@ namespace PayForXatu.MAUIApp.ViewModels
                 return;
             }
 
+
+            SetCurrentUser(logInResponseDTO.CurrentUser);
             await _navigationService.NavigateAsync("MainPage");
         }
         private void GoogleLogout()

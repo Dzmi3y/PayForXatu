@@ -1,6 +1,7 @@
 ﻿using Firebase.Auth;
 using Microsoft.Extensions.Configuration;
 using PayForXatu.BusinessLogic.DTOs;
+using PayForXatu.Database.Models;
 
 namespace PayForXatu.BusinessLogic.Services
 {
@@ -41,6 +42,12 @@ namespace PayForXatu.BusinessLogic.Services
                     logInResponseDTO.IsSuccess = false;
                     logInResponseDTO.Status = LogInResponseStatusEnum.EmailNotVerified;
                 }
+
+                logInResponseDTO.CurrentUser = new CurrentUserDTO()
+                {
+                    Email = user.Email,
+                    UserId = user.LocalId
+                };
 
                 return logInResponseDTO;
             }
@@ -91,6 +98,13 @@ namespace PayForXatu.BusinessLogic.Services
 
                 var authProvider = new FirebaseAuthProvider(new FirebaseConfig(_webApiKey));
                 var firebaseAccountLink = await authProvider.SignInWithGoogleIdTokenAsync(googleUserDTO.Token);
+                var user = firebaseAccountLink.User;
+
+                logInResponseDTO.CurrentUser = new CurrentUserDTO()
+                {
+                    Email = user.Email,
+                    UserId = user.LocalId
+                };
 
                 return logInResponseDTO;
             }

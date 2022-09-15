@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Extensions.Caching.Memory;
+using PayForXatu.BusinessLogic.DTOs;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -10,17 +12,23 @@ namespace PayForXatu.MAUIApp.ViewModels
     public class ViewModelBase : BindableBase, IInitialize, INavigationAware, IDestructible
     {
         protected INavigationService _navigationService { get; private set; }
+        protected IMemoryCache _memoryCache;
 
-        private string _title;
-        public string Title
+        public CurrentUserDTO CurrentUser
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get { return _memoryCache.Get("CurrentUser") as CurrentUserDTO; }
         }
 
-        public ViewModelBase(INavigationService navigationService)
+        public ViewModelBase(INavigationService navigationService, IMemoryCache memoryCache)
         {
             _navigationService = navigationService;
+            _memoryCache = memoryCache;
+
+        }
+
+        public void SetCurrentUser(CurrentUserDTO currentUser)
+        {
+            _memoryCache.Set("CurrentUser", currentUser);
         }
 
         public virtual void Initialize(INavigationParameters parameters)
