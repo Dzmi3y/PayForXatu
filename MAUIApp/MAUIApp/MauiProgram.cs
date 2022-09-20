@@ -12,25 +12,23 @@ namespace PayForXatu.MAUIApp
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UsePrismApp<App>(PrismStartup.Configure)
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("chicago_regular.ttf", "ChicagoRegular");
-                    fonts.AddFont("chiller_regular.ttf", "ChillerRegular");
-                    fonts.AddFont("digital7_mono.ttf", "Digital7Mono");
-                });
+            var builder = MauiApp.CreateBuilder()
+           .UseMauiApp<App>()
+           .UsePrism(prism => PrismStartup.Configure(prism))
+           .ConfigureFonts(fonts =>
+           {
+               fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+               fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+               fonts.AddFont("chicago_regular.ttf", "ChicagoRegular");
+               fonts.AddFont("chiller_regular.ttf", "ChillerRegular");
+               fonts.AddFont("digital7_mono.ttf", "Digital7Mono");
+           });
 
-            var a = Assembly.GetExecutingAssembly();
-            using var stream = a.GetManifestResourceStream("PayForXatu.MAUIApp.appsettings.json");
-
+            var assembly = Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream("PayForXatu.MAUIApp.appsettings.json");
             var config = new ConfigurationBuilder()
                         .AddJsonStream(stream)
                         .Build();
-
 
             builder.Configuration.AddConfiguration(config);
 

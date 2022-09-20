@@ -21,7 +21,7 @@ namespace PayForXatu.MAUIApp
 
         private static void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<MainPage>()
+            containerRegistry.RegisterForNavigation<HomePage>()
                          .RegisterInstance(SemanticScreenReader.Default);
             containerRegistry.RegisterForNavigation<LoginPage>()
                          .RegisterInstance(SemanticScreenReader.Default);

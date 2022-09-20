@@ -57,7 +57,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
         private async Task BackButtonTappedAsync()
         {
-            await _navigationService.NavigateAsync("LoginPage");
+            await _navigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 
         private async Task ResetPasswordButtonTappedAsync()
@@ -91,7 +91,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
         public async Task GoToLoginPageAsync()
         {
-            await _navigationService.NavigateAsync("LoginPage");
+            await _navigationService.NavigateAsync("NavigationPage/LoginPage");
         }
     }
 }

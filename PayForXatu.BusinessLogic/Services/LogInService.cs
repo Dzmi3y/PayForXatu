@@ -60,25 +60,9 @@ namespace PayForXatu.BusinessLogic.Services
             }
         }
 
-        public LogInResponseDTO LoginWithGoogleAuth(Action<GoogleUserDTO, string> OnGoogleLoginComplete)
+        public void LoginWithGoogleAuth(Action<GoogleUserDTO, string> OnGoogleLoginComplete)
         {
-            var logInResponseDTO = new LogInResponseDTO();
-            logInResponseDTO.IsSuccess = true;
-            logInResponseDTO.Status = LogInResponseStatusEnum.Success;
-
-            try
-            {
                 _googleManager.Login(_clientId, OnGoogleLoginComplete);
-                return logInResponseDTO;
-            }
-            catch (Exception ex)
-            {
-                logInResponseDTO.IsSuccess = false;
-                logInResponseDTO.Status = LogInResponseStatusEnum.Exception;
-                logInResponseDTO.Message = ex.Message;
-
-                return logInResponseDTO;
-            }
         }
 
         public async Task<LogInResponseDTO> AddGoogleAccauntToFirebaseAsync(GoogleUserDTO googleUserDTO)
@@ -122,7 +106,7 @@ namespace PayForXatu.BusinessLogic.Services
     public interface ILogInService
     {
         Task<LogInResponseDTO> LoginWithEmailAndPasswordAsync(string email, string password);
-        LogInResponseDTO LoginWithGoogleAuth(Action<GoogleUserDTO, string> OnGoogleLoginComplete);
+        void LoginWithGoogleAuth(Action<GoogleUserDTO, string> OnGoogleLoginComplete);
         Task<LogInResponseDTO> AddGoogleAccauntToFirebaseAsync(GoogleUserDTO googleUserDTO);
     }
 

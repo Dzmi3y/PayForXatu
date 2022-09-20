@@ -99,7 +99,9 @@
     <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.191-beta" />
+    <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
+    <PackageReference Include="Prism.Maui" Version="8.1.273-pre" />
+    <PackageReference Include="Prism.Maui.Rx" Version="8.1.273-pre" />
   </ItemGroup>
 
   <ItemGroup>
@@ -143,6 +145,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ForgotPasswordPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\LoginPage.xaml">

@@ -90,7 +90,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             if (logInResponseDTO.IsSuccess)
             {
                 SetCurrentUser(logInResponseDTO.CurrentUser);
-                await _navigationService.NavigateAsync("MainPage");
+                await _navigationService.NavigateAsync("NavigationPage/HomePage");
             }
             else
             {
@@ -116,24 +116,26 @@ namespace PayForXatu.MAUIApp.ViewModels
         private async Task OnSignUpTappedAsync()
         {
 
-            await _navigationService.NavigateAsync("SignUpPage");
+            await _navigationService.NavigateAsync("NavigationPage/SignUpPage");
 
 
         }
 
         private async Task OnForgotPasswordTappedAsync()
         {
-            await _navigationService.NavigateAsync("ForgotPasswordPage");
+            await _navigationService.NavigateAsync("NavigationPage/ForgotPasswordPage");
         }
 
         private void OnGoogleSignInTapped()
         {
-            Action<GoogleUserDTO, string> loginCallBack = async (googleUserDTO, message) =>
-                                    await OnGoogleLoginCompleteAsync(googleUserDTO, message);
+            try
+            {
+                Action<GoogleUserDTO, string> loginCallBack = async (googleUserDTO, message) =>
+                                        await OnGoogleLoginCompleteAsync(googleUserDTO, message);
 
-            var logInResponseDTO = _logInService.LoginWithGoogleAuth(loginCallBack);
-
-            if (!logInResponseDTO.IsSuccess)
+                _logInService.LoginWithGoogleAuth(loginCallBack);
+            }
+            catch (Exception ex)
             {
                 ErrorMessageIsVisible = true;
                 ErrorMessageText = AppRes.GoogleAccountNotFound;
@@ -160,7 +162,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
 
             SetCurrentUser(logInResponseDTO.CurrentUser);
-            await _navigationService.NavigateAsync("MainPage");
+            await _navigationService.NavigateAsync("NavigationPage/HomePage");
         }
         private void GoogleLogout()
         {
