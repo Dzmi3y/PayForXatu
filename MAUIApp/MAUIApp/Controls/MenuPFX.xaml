@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PayForXatu.MAUIApp.Controls.MenuPFX"
+             
+             x:Name="this">
+  <StackLayout x:Name="MainStack" VerticalOptions="Start">
+    <StackLayout.Triggers>
+      <DataTrigger  TargetType="StackLayout"
+                  Binding="{Binding Source={x:Reference this},
+                                       Path=MenuIsOpen}"
+                    Value="False">
+        <Setter Property="MaximumHeightRequest" Value="70" />
+        <Setter Property="HeightRequest" Value="70" />
+      </DataTrigger>
+      <DataTrigger TargetType="StackLayout"
+               Binding="{Binding Source={x:Reference this},
+                                       Path=MenuIsOpen}"
+               Value="True">
+        <Setter Property="MaximumHeightRequest" Value="400" />
+        <Setter Property="HeightRequest" Value="400"  />
+      </DataTrigger>
+    </StackLayout.Triggers>
+    <StackLayout.Background>
+      <LinearGradientBrush EndPoint="0,1">
+        <GradientStop Color="#333"
+                          Offset="0.3" />
+        <GradientStop Color="#000"
+                          Offset="1.0" />
+      </LinearGradientBrush>
+    </StackLayout.Background>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="70"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="70"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="80"/>
+      </Grid.ColumnDefinitions>
+      <Image Grid.Column="0"
+             HorizontalOptions="Start"
+             Margin="20,0,0,0"
+             Source="hamburger_menu.png">
+        <Image.GestureRecognizers>
+          <TapGestureRecognizer  
+                        Tapped="Burger_Tapped"/>
+        </Image.GestureRecognizers>
+      </Image>
+
+      <Label Grid.Column="1"
+           TextColor="#BDBDBD"
+           BindingContext="{x:Reference this}"
+           FontFamily="ChillerRegular"
+           Text="{Binding Title}"
+           HorizontalOptions="Center"
+           FontSize="60"/>
+
+      <Image Grid.Column="2"
+             HorizontalOptions="End"
+             Scale="1.5"
+             Margin="0,10,25,0"
+             Source="{Binding FlashlightIcon}"
+             BindingContext="{x:Reference this}">
+        <Image.GestureRecognizers>
+          <TapGestureRecognizer  
+                        Tapped="Flashlight_Tapped"/>
+        </Image.GestureRecognizers>
+      </Image>
+
+    </Grid>
+    <StackLayout>
+      <StackLayout.Triggers>
+        <DataTrigger  TargetType="StackLayout"
+                  Binding="{Binding Source={x:Reference this},
+                                       Path=MenuIsOpen}"
+                    Value="False">
+          <Setter Property="IsVisible" Value="False" />
+        </DataTrigger>
+        <DataTrigger TargetType="StackLayout"
+               Binding="{Binding Source={x:Reference this},
+                                       Path=MenuIsOpen}"
+               Value="True">
+          <Setter Property="IsVisible" Value="True" />
+        </DataTrigger>
+      </StackLayout.Triggers>
+
+    </StackLayout>
+    <ListView x:Name="ItemMenuList"
+              SelectionMode="None" 
+              SeparatorVisibility="None"
+              BindingContext="{x:Reference this}"
+              ItemsSource="{Binding MenuItems}"
+              ItemTapped="ItemMenuList_ItemTapped">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid Margin="20,0,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+              </Grid.RowDefinitions>
+              <Image Source="{Binding ImgUrlSelected}" Grid.Column="0">
+                <Image.Triggers>
+                  <DataTrigger  TargetType="Image"
+                  Binding="{Binding IsSelected}"
+                  Value="True">
+                    <Setter Property="IsVisible" Value="True" />
+                  </DataTrigger>
+                  <DataTrigger  TargetType="Image"
+                  Binding="{Binding IsSelected}"
+                  Value="False">
+                    <Setter Property="IsVisible" Value="False" />
+                  </DataTrigger>
+                </Image.Triggers>
+              </Image>
+              <Image Source="{Binding ImgUrl}" Grid.Column="0">
+                <Image.Triggers>
+                  <DataTrigger  TargetType="Image"
+                  Binding="{Binding IsSelected}"
+                  Value="False">
+                    <Setter Property="IsVisible" Value="True" />
+                  </DataTrigger>
+                  <DataTrigger  TargetType="Image"
+                  Binding="{Binding IsSelected}"
+                  Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                  </DataTrigger>
+                </Image.Triggers>
+              </Image>
+              <Label Grid.Column="1" Text="{Binding Title}" Margin="40,0,0,0" VerticalOptions="Center" FontFamily="ChicagoRegular" FontSize="25" TextColor="#BDBDBD">
+                <Label.Triggers>
+                  <DataTrigger  TargetType="Label"
+                  Binding="{Binding IsSelected}"
+                  Value="True">
+                    <Setter Property="TextColor" Value="#FFF" />
+                    <Setter Property="FontSize" Value="40" />
+                  </DataTrigger>
+                  <DataTrigger  TargetType="Label"
+                  Binding="{Binding IsSelected}"
+                  Value="False">
+                    <Setter Property="TextColor" Value="#BDBDBD" />
+                    <Setter Property="FontSize" Value="25" />
+                  </DataTrigger>
+                </Label.Triggers>
+              </Label>
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+  </StackLayout>
+</ContentView>

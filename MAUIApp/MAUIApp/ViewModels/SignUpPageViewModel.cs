@@ -79,7 +79,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
         private async Task OnBackButtonTappedAsync()
         {
-            await _navigationService.NavigateAsync("NavigationPage/LoginPage");
+            await _navigationService.NavigateAsync("LoginPage");
         }
 
         private async Task OnOkButtonTappedAsync()
@@ -128,7 +128,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
         public async Task GoToLoginPageAsync()
         {
-            await _navigationService.NavigateAsync("NavigationPage/LoginPage");
+            await _navigationService.NavigateAsync("LoginPage");
         }
     }
 }

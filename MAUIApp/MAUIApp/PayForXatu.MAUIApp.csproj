@@ -68,7 +68,19 @@
     <None Remove="Resources\Fonts\chicago_regular.ttf" />
     <None Remove="Resources\Fonts\chiller_regular.ttf" />
     <None Remove="Resources\Fonts\digital7_mono.ttf" />
+    <None Remove="Resources\Images\analytics.png" />
+    <None Remove="Resources\Images\analytics_selected.png" />
     <None Remove="Resources\Images\back_button_image.png" />
+    <None Remove="Resources\Images\flashlight_off.png" />
+    <None Remove="Resources\Images\flashlight_on.png" />
+    <None Remove="Resources\Images\hamburger_menu.png" />
+    <None Remove="Resources\Images\history.png" />
+    <None Remove="Resources\Images\history_selected.png" />
+    <None Remove="Resources\Images\home.png" />
+    <None Remove="Resources\Images\home_selected.png" />
+    <None Remove="Resources\Images\logout.png" />
+    <None Remove="Resources\Images\settings.png" />
+    <None Remove="Resources\Images\settings_selected.png" />
     <None Remove="Resources\Splash\splash.svg" />
   </ItemGroup>
 
@@ -144,7 +156,16 @@
     <MauiXaml Update="Controls\BlackBackButtonPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Controls\MenuPFX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\AnalyticsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ForgotPasswordPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\HistoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\HomePage.xaml">
@@ -154,6 +175,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ModalPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\SignUpPage.xaml">

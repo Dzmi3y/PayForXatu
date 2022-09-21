@@ -6,18 +6,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PayForXatu.MAUIApp.ViewModels
 {
-    public class HomePageViewModel :ViewModelBase
+    public class HistoryPageViewModel : ViewModelBase
     {
-
-        public HomePageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
+        public HistoryPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
             : base(navigationService, memoryCache)
         {
-            Title = "Home";
+            Title = "History";
         }
 
-
+       
     }
 }

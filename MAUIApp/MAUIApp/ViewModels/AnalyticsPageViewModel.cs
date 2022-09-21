@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace PayForXatu.MAUIApp.ViewModels
 {
-    public class HomePageViewModel :ViewModelBase
+    public class AnalyticsPageViewModel : ViewModelBase
     {
 
-        public HomePageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
+        public AnalyticsPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
             : base(navigationService, memoryCache)
         {
-            Title = "Home";
+            Title = "Analytics";
         }
 
 
