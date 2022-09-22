@@ -3,9 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.HomePage"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
-  <controls:MenuPFX Title="{Binding Title}" TapMenuCommand="{Binding TapMenuCommand}"/>
+  <ContentPage.Content>
 
 
+
+
+
+    <Grid x:Name="ControlsGrid">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <controls:MenuPFX Title="{Binding Title}"
+                        TapMenuCommand="{Binding TapMenuCommand}"
+                        MenuIsOpen="{Binding MenuIsOpen}"
+                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
+                        ZIndex="1"/>
+      <StackLayout ZIndex="0" Padding="0,70,0,0">
+        <Label HorizontalOptions="CenterAndExpand" Text="text1" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text2" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="CenterAndExpand" Text="text1" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text2" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+        <Label HorizontalOptions="Center" Text="text3" TextColor="White"/>
+    </StackLayout>
+     
+     </Grid>
+        
+    </ContentPage.Content>
 
 </ContentPage>

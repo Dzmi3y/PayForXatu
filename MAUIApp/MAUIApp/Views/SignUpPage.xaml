@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.SignUpPage"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
   <ContentPage.Content>
     <StackLayout Padding="30,0">

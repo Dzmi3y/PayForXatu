@@ -90,7 +90,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             if (logInResponseDTO.IsSuccess)
             {
                 SetCurrentUser(logInResponseDTO.CurrentUser);
-                await _navigationService.NavigateAsync("HomePage");
+                await _navigationService.NavigateAsync("NavigationPage/HomePage");
             }
             else
             {
@@ -116,14 +116,14 @@ namespace PayForXatu.MAUIApp.ViewModels
         private async Task OnSignUpTappedAsync()
         {
 
-            await _navigationService.NavigateAsync("SignUpPage");
+            await _navigationService.NavigateAsync("NavigationPage/SignUpPage");
 
 
         }
 
         private async Task OnForgotPasswordTappedAsync()
         {
-            await _navigationService.NavigateAsync("ForgotPasswordPage");
+            await _navigationService.NavigateAsync("NavigationPage/ForgotPasswordPage");
         }
 
         private void OnGoogleSignInTapped()
@@ -162,7 +162,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
 
             SetCurrentUser(logInResponseDTO.CurrentUser);
-            await _navigationService.NavigateAsync("HomePage");
+            await _navigationService.NavigateAsync("NavigationPage/HomePage");
         }
         private void GoogleLogout()
         {

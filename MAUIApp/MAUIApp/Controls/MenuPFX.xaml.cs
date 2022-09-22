@@ -26,6 +26,7 @@ public partial class MenuPFX : ContentView
     private void MenuPFX_Loaded(object sender, EventArgs e)
     {
         SetSelectedItem();
+        FlashlightIcon = (FlashlightIsOn) ? _urlFlashlightOn : _urlFlashlightOff;
     }
 
     private void SetSelectedItem()
@@ -160,8 +161,6 @@ public partial class MenuPFX : ContentView
                 TapMenuCommand.Execute(item.UrlPage);
     }
 
-
-
     public static readonly BindableProperty TapMenuCommandProperty = BindableProperty.Create(
      "TapMenuCommand", typeof(ICommand), typeof(ICommand), null);
 
@@ -172,8 +171,6 @@ public partial class MenuPFX : ContentView
     }
 
 }
-
-
 
 
 public class MenuItem: BindableBase

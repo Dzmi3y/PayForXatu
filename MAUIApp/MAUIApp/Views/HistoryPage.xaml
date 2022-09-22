@@ -2,9 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.HistoryPage"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
              BackgroundColor="Black">
-  <controls:MenuPFX Title="{Binding Title}" TapMenuCommand="{Binding TapMenuCommand}"/>
+  <controls:MenuPFX Title="{Binding Title}"
+                    TapMenuCommand="{Binding TapMenuCommand}"
+                    MenuIsOpen="{Binding MenuIsOpen}"
+                    FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
 
 
 

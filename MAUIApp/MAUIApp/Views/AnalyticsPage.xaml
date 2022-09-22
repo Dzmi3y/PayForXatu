@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.AnalyticsPage"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
-  <controls:MenuPFX Title="{Binding Title}" TapMenuCommand="{Binding TapMenuCommand}"/>
+  <controls:MenuPFX Title="{Binding Title}"
+                    TapMenuCommand="{Binding TapMenuCommand}"
+                    MenuIsOpen="{Binding MenuIsOpen}"
+                    FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
 
 
 

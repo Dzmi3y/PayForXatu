@@ -4,6 +4,8 @@
              x:Class="PayForXatu.MAUIApp.Views.ModalPage"
              Title="ModalPage"
              x:Name="this"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
              BackgroundColor="Transparent">
   <ContentPage.Content>
     <Grid>

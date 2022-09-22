@@ -16,8 +16,8 @@ namespace PayForXatu.MAUIApp
         public static void Configure(PrismAppBuilder builder)
         {
             builder.RegisterTypes(RegisterTypes)
-                     //.OnAppStart("LoginPage");
-                     .OnAppStart("HomePage");
+                     //.OnAppStart("NavigationPage/LoginPage");
+                     .OnAppStart("NavigationPage/HomePage");
         }
 
         private static void RegisterTypes(IContainerRegistry containerRegistry)
