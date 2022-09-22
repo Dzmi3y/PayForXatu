@@ -66,12 +66,30 @@ namespace PayForXatu.MAUIApp.ViewModels
         public bool FlashlightIsOn
         {
             get { return _flashlightIsOn; }
-            set { SetProperty(ref _flashlightIsOn, value); }
+            set
+            {
+                SetProperty(ref _flashlightIsOn, value);
+                Task task = ToggleFlashlight(value);
+            }
         }
         public bool MenuIsOpen
         {
             get { return _menuIsOpen; }
             set { SetProperty(ref _menuIsOpen, value); }
+        }
+
+        private async Task ToggleFlashlight(bool isToggle)
+        {
+            try
+            {
+                if (isToggle)
+                    await Flashlight.Default.TurnOnAsync();
+                else
+                    await Flashlight.Default.TurnOffAsync();
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public virtual void Initialize(INavigationParameters parameters)
@@ -82,7 +100,7 @@ namespace PayForXatu.MAUIApp.ViewModels
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
 
-            
+
         }
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
@@ -92,26 +110,26 @@ namespace PayForXatu.MAUIApp.ViewModels
                 MenuIsOpen = false;
                 FlashlightIsOn = false;
             }
-                if (parameters.Any(x => x.Key == "MenuIsOpen"))
-                {
-                    var menuIsOpen = parameters.FirstOrDefault(x => x.Key == "MenuIsOpen");
-                    MenuIsOpen = (bool)menuIsOpen.Value;
-                }
-                else
-                {
-                    MenuIsOpen = false;
-                }
+            if (parameters.Any(x => x.Key == "MenuIsOpen"))
+            {
+                var menuIsOpen = parameters.FirstOrDefault(x => x.Key == "MenuIsOpen");
+                MenuIsOpen = (bool)menuIsOpen.Value;
+            }
+            else
+            {
+                MenuIsOpen = false;
+            }
 
 
-                if (parameters.Any(x => x.Key == "FlashlightIsOn"))
-                {
-                    var flashlightIsOn = parameters.FirstOrDefault(x => x.Key == "FlashlightIsOn");
-                    FlashlightIsOn = (bool)flashlightIsOn.Value;
-                }
+            if (parameters.Any(x => x.Key == "FlashlightIsOn"))
+            {
+                var flashlightIsOn = parameters.FirstOrDefault(x => x.Key == "FlashlightIsOn");
+                FlashlightIsOn = (bool)flashlightIsOn.Value;
+            }
 
-            
 
-            
+
+
         }
 
         public virtual void Destroy()
