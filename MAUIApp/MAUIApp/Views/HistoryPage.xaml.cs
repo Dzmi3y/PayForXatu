@@ -2,7 +2,7 @@
 
 namespace PayForXatu.MAUIApp.Views;
 
-public partial class HistoryPage : ContentPage
+public partial class HistoryPage : BasePage
 {
 	public HistoryPage()
 	{

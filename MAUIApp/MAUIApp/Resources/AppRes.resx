@@ -138,6 +138,9 @@
   <data name="InvalidEmailOrPassword" xml:space="preserve">
     <value>Invalid email or password</value>
   </data>
+  <data name="LogoutModalText" xml:space="preserve">
+    <value>Do you really want to log out?</value>
+  </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Passwords don't match</value>
   </data>

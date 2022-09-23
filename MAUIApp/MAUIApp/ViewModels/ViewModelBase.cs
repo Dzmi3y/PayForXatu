@@ -38,9 +38,29 @@ namespace PayForXatu.MAUIApp.ViewModels
                     {"FlashlightIsOn", FlashlightIsOn}
                 };
 
+                if (pageName == "LoginPage")
+                {
+                    if (OpenLogoutModal != null)
+                    {
+                        OpenLogoutModal.Invoke(async ()=>await LogoutAsync());
+                    }
+
+                    return;
+                }
+
                 await _navigationService.NavigateAsync("NavigationPage/" + pageName, param);
             }
         }
+
+        private async Task LogoutAsync()
+        {
+            FlashlightIsOn = false;
+            SetCurrentUser(null);
+                
+            await _navigationService.NavigateAsync("NavigationPage/LoginPage");
+        }
+
+        public Action<Action> OpenLogoutModal { get; set; }
 
         public CurrentUserDTO CurrentUser
         {
@@ -100,7 +120,6 @@ namespace PayForXatu.MAUIApp.ViewModels
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
 
-
         }
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
@@ -120,16 +139,11 @@ namespace PayForXatu.MAUIApp.ViewModels
                 MenuIsOpen = false;
             }
 
-
             if (parameters.Any(x => x.Key == "FlashlightIsOn"))
             {
                 var flashlightIsOn = parameters.FirstOrDefault(x => x.Key == "FlashlightIsOn");
                 FlashlightIsOn = (bool)flashlightIsOn.Value;
             }
-
-
-
-
         }
 
         public virtual void Destroy()

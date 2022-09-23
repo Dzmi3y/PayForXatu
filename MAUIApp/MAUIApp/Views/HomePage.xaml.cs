@@ -1,9 +1,14 @@
+using CommunityToolkit.Maui.Views;
+using DryIoc.FastExpressionCompiler.LightExpression;
+
 namespace PayForXatu.MAUIApp.Views;
 
-public partial class HomePage : ContentPage
+public partial class HomePage : BasePage
 {
     public HomePage()
     {
+       
         InitializeComponent();
+
     }
 }

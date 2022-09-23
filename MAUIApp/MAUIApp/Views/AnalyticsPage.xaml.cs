@@ -1,6 +1,6 @@
 namespace PayForXatu.MAUIApp.Views;
 
-public partial class AnalyticsPage : ContentPage
+public partial class AnalyticsPage : BasePage
 {
 	public AnalyticsPage()
 	{

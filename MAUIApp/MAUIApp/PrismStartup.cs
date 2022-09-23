@@ -36,7 +36,6 @@ namespace PayForXatu.MAUIApp
                          .RegisterInstance(SemanticScreenReader.Default);
             containerRegistry.RegisterForNavigation<ForgotPasswordPage>()
                          .RegisterInstance(SemanticScreenReader.Default);
-            containerRegistry.RegisterForNavigation<ModalPage>();
 
             containerRegistry.RegisterScoped<ISignUpService, SignUpService>();
             containerRegistry.RegisterScoped<IGoogleManager, GoogleManager>();

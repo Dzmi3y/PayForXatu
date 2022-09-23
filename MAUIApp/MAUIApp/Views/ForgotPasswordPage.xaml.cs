@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using PayForXatu.MAUIApp.Resources;
 using PayForXatu.MAUIApp.ViewModels;
 
@@ -21,12 +22,11 @@ public partial class ForgotPasswordPage : ContentPage
     private void OnOpenModal()
     {
         var page = new ModalPage(async () => await OnCloseModal(), AppRes.ForgotPasswordText);
-        Navigation.PushModalAsync(page, true);
+        this.ShowPopup(page);
     }
 
     private async Task OnCloseModal()
     {
-        await Navigation.PopModalAsync();
         await vm.GoToLoginPageAsync();
     }
 }

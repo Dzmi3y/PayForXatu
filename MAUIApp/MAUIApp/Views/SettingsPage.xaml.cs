@@ -1,6 +1,6 @@
 namespace PayForXatu.MAUIApp.Views;
 
-public partial class SettingsPage : ContentPage
+public partial class SettingsPage : BasePage
 {
 	public SettingsPage()
 	{

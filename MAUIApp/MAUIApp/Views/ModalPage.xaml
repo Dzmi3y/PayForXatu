@@ -1,64 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PayForXatu.MAUIApp.Views.ModalPage"
-             Title="ModalPage"
-             x:Name="this"
-             NavigationPage.HasNavigationBar="False"
-             NavigationPage.HasBackButton="False"
-             BackgroundColor="Transparent">
-  <ContentPage.Content>
-    <Grid>
-      <Grid x:Name="MainGrid" BackgroundColor="Black" Opacity="0">
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="PayForXatu.MAUIApp.Views.ModalPage"
+               Color="Transparent"
+               x:Name="this">
 
-      </Grid>
+
+  <Frame BackgroundColor="#BDBDBD" CornerRadius="20" HeightRequest="250" WidthRequest="320">
+    <StackLayout>
+      <Label
+        x:Name="TextMessageLabel"
+        Margin="15,30,15,60"
+        TextColor="#000"
+        FontFamily="ChicagoRegular"
+        FontSize="25"/>
       <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="250"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="320"/>
+          <ColumnDefinition Width="100"/>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">
-          <Grid.GestureRecognizers>
-            <TapGestureRecognizer  
-                        BindingContext="{x:Reference this}" 
-                        Tapped="TapGestureRecognizer_Tapped"/>
-          </Grid.GestureRecognizers>
-        </Grid>
-        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
-          <Grid.GestureRecognizers>
-            <TapGestureRecognizer  
-                        BindingContext="{x:Reference this}" 
-                        Tapped="TapGestureRecognizer_Tapped"/>
-          </Grid.GestureRecognizers>
-        </Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
 
-
-        <Frame BackgroundColor="#BDBDBD" Grid.Column="1" Grid.Row="1" CornerRadius="20">
-          <StackLayout>
-            <Label
-                        x:Name="TextMessageLabel"
-                        Margin="15,30,15,60"
-                        TextColor="#000"
-                        FontFamily="ChicagoRegular"
-                        FontSize="25"/>
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-              </Grid.RowDefinitions>
-
-              <Frame  Grid.Column="1" BackgroundColor="#333" CornerRadius="20" Margin="0" Padding="10,1,10,1">
-                <Label 
+        <Frame  Grid.Column="1" BackgroundColor="#333" CornerRadius="10" Margin="0" Padding="10,1,10,1">
+          <Label 
                                     HorizontalTextAlignment="Center"
                                     VerticalTextAlignment="Center"
                                     BindingContext="{x:Reference this}"
@@ -69,17 +37,15 @@
                                     HeightRequest="50"
                                     WidthRequest="300"
                                     FontSize="Large">
-                  <Label.GestureRecognizers>
-                    <TapGestureRecognizer  
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer  
                                             BindingContext="{x:Reference this}" 
                                             Tapped="TapGestureRecognizer_Tapped"/>
-                  </Label.GestureRecognizers>
-                </Label>
-              </Frame>
-            </Grid>
-          </StackLayout>
+            </Label.GestureRecognizers>
+          </Label>
         </Frame>
       </Grid>
-    </Grid>
-  </ContentPage.Content>
-</ContentPage>
+    </StackLayout>
+  </Frame>
+
+</toolkit:Popup>

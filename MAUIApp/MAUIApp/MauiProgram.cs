@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace PayForXatu.MAUIApp
         {
             var builder = MauiApp.CreateBuilder()
            .UseMauiApp<App>()
+           .UseMauiCommunityToolkit()
            .UsePrism(prism => PrismStartup.Configure(prism))
            .ConfigureFonts(fonts =>
            {

@@ -77,7 +77,7 @@ public partial class MenuPFX : ContentView
             Title = "Log Out",
             ImgUrl = "logout.png",
             ImgUrlSelected = "logout.png",
-            UrlPage = "LogInPage"
+            UrlPage = "LoginPage"
         });
     }
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="PayForXatu.MAUIApp.Views.LogoutModalPage"
+               Color="Transparent"
+               x:Name="this">
+
+
+  <Frame BackgroundColor="#BDBDBD" CornerRadius="20" HeightRequest="250" WidthRequest="320">
+    <StackLayout>
+      <Label
+        x:Name="TextMessageLabel"
+        Margin="15,30,15,60"
+        TextColor="#000"
+        FontFamily="ChicagoRegular"
+        FontSize="25"/>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="100"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="100"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Frame  Grid.Column="1" BackgroundColor="#333" CornerRadius="10" Margin="0" Padding="10,1,10,1">
+          <Label 
+             HorizontalTextAlignment="Center"
+             VerticalTextAlignment="Center"
+             BindingContext="{x:Reference this}"
+             Text="Yes"
+             Background="#333"
+             TextColor="#BDBDBD"
+             FontFamily="ChicagoRegular"
+             HeightRequest="50"
+             WidthRequest="300"
+             FontSize="Large">
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer  
+                BindingContext="{x:Reference this}" 
+                Tapped="Logout_Tapped"/>
+            </Label.GestureRecognizers>
+          </Label>
+        </Frame>
+
+        <Frame  Grid.Column="3" BackgroundColor="#600C0C" CornerRadius="10" Margin="0" Padding="10,1,10,1">
+          <Label 
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                BindingContext="{x:Reference this}"
+                Text="No"
+                Background="#600C0C"
+                TextColor="#BDBDBD"
+                FontFamily="ChicagoRegular"
+                HeightRequest="50"
+                WidthRequest="300"
+                FontSize="Large">
+            <Label.GestureRecognizers>
+              <TapGestureRecognizer  
+                BindingContext="{x:Reference this}" 
+                Tapped="Close_Tapped"/>
+            </Label.GestureRecognizers>
+          </Label>
+        </Frame>
+      </Grid>
+    </StackLayout>
+  </Frame>
+
+</toolkit:Popup>

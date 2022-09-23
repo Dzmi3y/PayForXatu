@@ -124,6 +124,15 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to log out?.
+        /// </summary>
+        internal static string LogoutModalText {
+            get {
+                return ResourceManager.GetString("LogoutModalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passwords don&apos;t match.
         /// </summary>
         internal static string PasswordsDoNotMatch {
