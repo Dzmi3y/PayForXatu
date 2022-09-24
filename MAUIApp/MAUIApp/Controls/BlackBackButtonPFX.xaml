@@ -5,10 +5,10 @@
              x:Name="this">
   <ContentView.Content>
     <Frame BackgroundColor="#333"
-           CornerRadius="20" Margin="0"
+           CornerRadius="10" Margin="0"
            Padding="10,0,10,4"
            BindingContext="{x:Reference this}"
-           BorderColor="White"
+           BorderColor="#333"
            HeightRequest="50">
       <Frame.GestureRecognizers>
         <TapGestureRecognizer  

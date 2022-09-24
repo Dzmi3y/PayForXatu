@@ -5,17 +5,15 @@
              x:Name="this">
   <ContentView.Content>
     <Button
-      CornerRadius="20"
+      CornerRadius="10"
       Background="#333"
-      BorderColor="White"
       Margin="0"
-      BorderWidth="1"
       BindingContext="{x:Reference this}"
       Text="{Binding Text, Mode=TwoWay}"
       TextColor="#BDBDBD"
       FontFamily="ChicagoRegular"
       HeightRequest="50"
-      FontSize="Large">
+      FontSize="25">
       <Button.GestureRecognizers>
         <TapGestureRecognizer  
                         BindingContext="{x:Reference this}" 

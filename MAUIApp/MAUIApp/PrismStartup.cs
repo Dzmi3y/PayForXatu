@@ -17,7 +17,7 @@ namespace PayForXatu.MAUIApp
         {
             builder.RegisterTypes(RegisterTypes)
                      //.OnAppStart("NavigationPage/LoginPage");
-                     .OnAppStart("NavigationPage/HomePage");
+                     .OnAppStart("NavigationPage/SettingsPage");
         }
 
         private static void RegisterTypes(IContainerRegistry containerRegistry)

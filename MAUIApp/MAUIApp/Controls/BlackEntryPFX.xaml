@@ -6,7 +6,7 @@
              x:Name="this">
   <ContentView.Content>
     <StackLayout>
-      <Frame BackgroundColor="#333" CornerRadius="20" Margin="0" Padding="10,0,10,4" BorderColor="White" HeightRequest="50">
+      <Frame BackgroundColor="#333" CornerRadius="10" Margin="0" Padding="10,0,10,4" BorderColor="#333" HeightRequest="50">
         <controls:EntryPFX
                 BindingContext="{x:Reference this}"
                 Placeholder="{Binding Placeholder, Mode=TwoWay}"
