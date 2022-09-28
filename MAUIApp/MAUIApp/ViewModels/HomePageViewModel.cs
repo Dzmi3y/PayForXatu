@@ -12,8 +12,9 @@ namespace PayForXatu.MAUIApp.ViewModels
     public class HomePageViewModel :ViewModelBase
     {
 
-        public HomePageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
-            : base(navigationService, memoryCache)
+        public HomePageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
+            ICurrencyService currencyService)
+            : base(navigationService, memoryCache, currencyService)
         {
             Title = "Home";
         }

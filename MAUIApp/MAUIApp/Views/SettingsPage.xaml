@@ -65,11 +65,14 @@
                 FontSize="18"/>
         <controls:BlackEntryPFX x:Name="ConfirmNewPasswordEntry" Text="{Binding ConfirmNewPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
 
-        <Grid>
+        <Grid Padding="0,0,0,0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="123"/>
           </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
+          </Grid.RowDefinitions>
 
           <Label
                 Grid.Column="0"
@@ -80,6 +83,30 @@
                 FontFamily="ChicagoRegular"
                 FontSize="25"/>
 
+          <Frame Margin="0,20,0,0" Padding="0,0,0,0"  Grid.Column="1" BackgroundColor="#C8C8C8" CornerRadius="10">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+              </Grid.ColumnDefinitions>
+              <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="PickupGrid_Tapped"/>
+              </Grid.GestureRecognizers>
+              <Picker Grid.Column="0"
+                x:Name="CurrencyPicker"
+                TextColor="#333"
+                BackgroundColor="Transparent"
+                FontFamily="ChicagoRegular"
+                HorizontalTextAlignment="Center"
+                ItemsSource="{Binding CurrenciesList}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedCurrency}"
+                FontSize="25">
+                
+              </Picker>
+              <Image Scale="0.5" Grid.Column="1" Source="dropdown_arrow.png"/>
+            </Grid>
+          </Frame>
         </Grid>
 
         <Label
@@ -102,7 +129,7 @@
           FontSize="30">
           <Button.GestureRecognizers>
             <TapGestureRecognizer  
-                        Command="{Binding SaveChangesTapCommand}"/>
+                        Command="{Binding SaveChangesCommand}"/>
           </Button.GestureRecognizers>
         </Button>
         <Grid>

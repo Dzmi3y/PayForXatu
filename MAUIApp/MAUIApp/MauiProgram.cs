@@ -31,7 +31,7 @@ namespace PayForXatu.MAUIApp
             var config = new ConfigurationBuilder()
                         .AddJsonStream(stream)
                         .Build();
-
+           // Task t = PrismStartup.FirebaseInitAsync(config);
             builder.Configuration.AddConfiguration(config);
 
             return builder.Build();

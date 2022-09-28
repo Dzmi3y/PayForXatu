@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
+using PayForXatu.BusinessLogic.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -15,17 +16,19 @@ namespace PayForXatu.MAUIApp.ViewModels
     {
         protected INavigationService _navigationService { get; private set; }
         protected IMemoryCache _memoryCache;
+        protected ICurrencyService _currencyService;
         bool _menuIsOpen;
         bool _flashlightIsOn;
         private ICommand _tapMenuCommand;
         private string _title;
 
-        public ViewModelBase(INavigationService navigationService, IMemoryCache memoryCache)
+        public ViewModelBase(INavigationService navigationService, IMemoryCache memoryCache,
+            ICurrencyService currencyService)
         {
             _navigationService = navigationService;
             _memoryCache = memoryCache;
             _tapMenuCommand = new Command(async (pageName) => { await TapMenuComandHandlerAsync((string)pageName); });
-
+            _currencyService = currencyService;
         }
 
         public async Task TapMenuComandHandlerAsync(string pageName)

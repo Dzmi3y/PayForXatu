@@ -12,8 +12,9 @@ namespace PayForXatu.MAUIApp.ViewModels
     public class AnalyticsPageViewModel : ViewModelBase
     {
 
-        public AnalyticsPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
-            : base(navigationService, memoryCache)
+        public AnalyticsPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
+            ICurrencyService currencyService)
+            : base(navigationService, memoryCache,currencyService)
         {
             Title = "Analytics";
         }

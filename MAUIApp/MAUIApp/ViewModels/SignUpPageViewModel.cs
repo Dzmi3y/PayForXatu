@@ -25,8 +25,8 @@ namespace PayForXatu.MAUIApp.ViewModels
         string _confirmPassword;
 
         public SignUpPageViewModel(INavigationService navigationService, 
-            ISignUpService authService,IMemoryCache memoryCache)
-            : base(navigationService,memoryCache)
+            ISignUpService authService,IMemoryCache memoryCache, ICurrencyService currencyService)
+            : base(navigationService,memoryCache, currencyService)
         {
             _authService = authService;
             _backButtonTapCommand = new Command(async () => await OnBackButtonTappedAsync());

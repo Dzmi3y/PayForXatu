@@ -71,6 +71,7 @@
     <None Remove="Resources\Images\analytics.png" />
     <None Remove="Resources\Images\analytics_selected.png" />
     <None Remove="Resources\Images\back_button_image.png" />
+    <None Remove="Resources\Images\dropdown_arrow.png" />
     <None Remove="Resources\Images\flashlight_off.png" />
     <None Remove="Resources\Images\flashlight_on.png" />
     <None Remove="Resources\Images\hamburger_menu.png" />

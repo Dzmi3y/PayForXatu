@@ -16,6 +16,7 @@ namespace PayForXatu.Database
 
         public FirebaseRepository(IConfiguration config)
         {
+            
             var firebaseDatabaseToken = config.GetRequiredSection("FirebaseDatabaseToken").Value;
             var firebaseDatabaseUrl = config.GetRequiredSection("FirebaseDatabaseUrl").Value;
 
@@ -30,7 +31,7 @@ namespace PayForXatu.Database
 
         public async Task AddAsync<T>(T newChild)
         {
-            string childName = GetChildNameByType(typeof(T));
+            string childName = SetUpDbModels.GetChildNameByType(typeof(T));
             await firebaseClient
             .Child(childName)
             .PostAsync(newChild);
@@ -38,7 +39,7 @@ namespace PayForXatu.Database
 
         public async Task<IReadOnlyCollection<FirebaseObject<T>>> GetFirebaseObjectsAsync<T>()
         {
-            string childName = GetChildNameByType(typeof(T));
+            string childName = SetUpDbModels.GetChildNameByType(typeof(T));
             return await firebaseClient
           .Child(childName)
           .OnceAsync<T>();
@@ -62,14 +63,14 @@ namespace PayForXatu.Database
 
         public async Task UpdateAsync<T>(T updatedChild) where T : BaseEntity
         {
-            string childName = GetChildNameByType(typeof(T));
+            string childName = SetUpDbModels.GetChildNameByType(typeof(T));
             var child = await GetFirebaseObjectAsync(updatedChild);
             if (child != null)
             {
                 await firebaseClient
                   .Child(childName)
                   .Child(child.Key)
-                 .PutAsync(child.Object);
+                 .PutAsync(updatedChild);
             }
         }
 
@@ -82,7 +83,7 @@ namespace PayForXatu.Database
 
         public async Task DeleteAsync<T>(Guid id) where T : BaseEntity
         {
-            string childName = GetChildNameByType(typeof(T));
+            string childName = SetUpDbModels.GetChildNameByType(typeof(T));
             var child = await GetFirebaseObjectByIdAsync<T>(id);
             if (child != null)
             {
@@ -91,16 +92,6 @@ namespace PayForXatu.Database
                   .Child(child.Key)
                   .DeleteAsync();
             }
-        }
-
-        public string GetChildNameByType(Type t)
-        {
-            if (t == null)
-                throw new Exception("Child shouldn't to be equal null");
-            if (t == typeof(User))
-                return "users";
-
-            throw new Exception("Type is not found");
         }
     }
 
@@ -114,6 +105,5 @@ namespace PayForXatu.Database
         Task UpdateAsync<T>(T updatedChild) where T : BaseEntity;
         Task<FirebaseObject<T>?> GetFirebaseObjectByIdAsync<T>(Guid id) where T : BaseEntity;
         Task DeleteAsync<T>(Guid id) where T : BaseEntity;
-        string GetChildNameByType(Type t);
     }
 }

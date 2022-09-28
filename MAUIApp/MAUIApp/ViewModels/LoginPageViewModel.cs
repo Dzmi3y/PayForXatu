@@ -23,8 +23,8 @@ namespace PayForXatu.MAUIApp.ViewModels
 
 
         public LoginPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
-            IGoogleManager googleManager, ILogInService logInService)
-            : base(navigationService, memoryCache)
+            IGoogleManager googleManager, ILogInService logInService, ICurrencyService currencyService)
+            : base(navigationService, memoryCache,currencyService)
         {
             _logInService = logInService;
             _googleManager = googleManager;
@@ -164,6 +164,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             SetCurrentUser(logInResponseDTO.CurrentUser);
             await _navigationService.NavigateAsync("NavigationPage/HomePage");
         }
+
         private void GoogleLogout()
         {
             _googleManager.Logout();

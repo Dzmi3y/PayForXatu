@@ -10,9 +10,12 @@ namespace PayForXatu.BusinessLogic.Services
         string _clientId;
         string _webApiKey;
         IGoogleManager _googleManager;
-        public LogInService(IConfiguration config, IGoogleManager googleManager)
+        IUserSettingsService _userSettingsService;
+        public LogInService(IConfiguration config, IGoogleManager googleManager, 
+            IUserSettingsService userSettingsService)
         {
             _googleManager = googleManager;
+            _userSettingsService = userSettingsService;
             _webApiKey = config.GetRequiredSection("WebApiKey").Value;
             _clientId = config.GetRequiredSection("ClientId").Value;
         }
@@ -42,11 +45,12 @@ namespace PayForXatu.BusinessLogic.Services
                     logInResponseDTO.IsSuccess = false;
                     logInResponseDTO.Status = LogInResponseStatusEnum.EmailNotVerified;
                 }
-
+                var userSettings = await GetUserSettingsByIdAsync(user.LocalId);
                 logInResponseDTO.CurrentUser = new CurrentUserDTO()
                 {
                     Email = user.Email,
-                    UserId = user.LocalId
+                    UserId = user.LocalId,
+                    UserSettings = userSettings
                 };
 
                 return logInResponseDTO;
@@ -58,6 +62,18 @@ namespace PayForXatu.BusinessLogic.Services
 
                 return logInResponseDTO;
             }
+        }
+
+        private async Task<UserSettings> GetUserSettingsByIdAsync(string userId)
+        {
+           var userSettings = await _userSettingsService.GetUserSettingsByUserIdAsync(userId);
+
+            if (userSettings == null)
+            {
+                userSettings = await _userSettingsService.AddUserSettingsAsync(userId);
+            }
+
+            return userSettings;
         }
 
         public void LoginWithGoogleAuth(Action<GoogleUserDTO, string> OnGoogleLoginComplete)
@@ -84,10 +100,12 @@ namespace PayForXatu.BusinessLogic.Services
                 var firebaseAccountLink = await authProvider.SignInWithGoogleIdTokenAsync(googleUserDTO.Token);
                 var user = firebaseAccountLink.User;
 
+                var userSettings = await GetUserSettingsByIdAsync(user.LocalId);
                 logInResponseDTO.CurrentUser = new CurrentUserDTO()
                 {
                     Email = user.Email,
-                    UserId = user.LocalId
+                    UserId = user.LocalId,
+                    UserSettings = userSettings
                 };
 
                 return logInResponseDTO;

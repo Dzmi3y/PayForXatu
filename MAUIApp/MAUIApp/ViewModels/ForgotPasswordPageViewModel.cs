@@ -17,8 +17,8 @@ namespace PayForXatu.MAUIApp.ViewModels
         string _email;
 
         public ForgotPasswordPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
-            IForgotPasswordService forgotPasswordService)
-            : base(navigationService, memoryCache)
+            IForgotPasswordService forgotPasswordService, ICurrencyService currencyService)
+            : base(navigationService, memoryCache, currencyService)
         {
             _forgotPasswordService = forgotPasswordService;
             _backButtonTapCommand = new Command(async () => await BackButtonTappedAsync());

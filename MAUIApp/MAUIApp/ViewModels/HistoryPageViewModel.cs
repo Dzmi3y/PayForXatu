@@ -12,8 +12,9 @@ namespace PayForXatu.MAUIApp.ViewModels
 {
     public class HistoryPageViewModel : ViewModelBase
     {
-        public HistoryPageViewModel(INavigationService navigationService, IMemoryCache memoryCache)
-            : base(navigationService, memoryCache)
+        public HistoryPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
+            ICurrencyService currencyService)
+            : base(navigationService, memoryCache,currencyService)
         {
             Title = "History";
         }
