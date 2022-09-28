@@ -24,7 +24,7 @@ public class BasePage : ContentPage
 
     private void OnOpenLogoutModal(Action logout)
     {
-        var page = new LogoutModalPage(logout, AppRes.LogoutModalText);
+        var page = new ConfirmModalPage(logout, AppRes.LogoutModalText);
 
         this.ShowPopup(page);
     }

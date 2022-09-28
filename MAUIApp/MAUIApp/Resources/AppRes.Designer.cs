@@ -61,6 +61,24 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency was chanched.
+        /// </summary>
+        internal static string CurrencyWasChanged {
+            get {
+                return ResourceManager.GetString("CurrencyWasChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete your account?.
+        /// </summary>
+        internal static string DeleteAccountModalText {
+            get {
+                return ResourceManager.GetString("DeleteAccountModalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email must be filled in.
         /// </summary>
         internal static string EmailIsEmpty {
@@ -75,6 +93,15 @@ namespace PayForXatu.MAUIApp.Resources {
         internal static string EmailNotVerified {
             get {
                 return ResourceManager.GetString("EmailNotVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email was chanched.
+        /// </summary>
+        internal static string EmailWasChanged {
+            get {
+                return ResourceManager.GetString("EmailWasChanged", resourceCulture);
             }
         }
         
@@ -138,6 +165,15 @@ namespace PayForXatu.MAUIApp.Resources {
         internal static string PasswordsDoNotMatch {
             get {
                 return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password was chanched.
+        /// </summary>
+        internal static string PasswordWasChanged {
+            get {
+                return ResourceManager.GetString("PasswordWasChanged", resourceCulture);
             }
         }
         

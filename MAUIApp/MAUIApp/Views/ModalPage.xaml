@@ -7,7 +7,7 @@
                x:Name="this">
 
 
-  <Frame BackgroundColor="#BDBDBD" CornerRadius="20" HeightRequest="250" WidthRequest="320">
+  <Frame BackgroundColor="#BDBDBD" CornerRadius="20" MinimumHeightRequest="250" WidthRequest="320">
     <StackLayout>
       <Label
         x:Name="TextMessageLabel"

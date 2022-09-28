@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CurrencyWasChanged" xml:space="preserve">
+    <value>Currency was chanched</value>
+  </data>
+  <data name="DeleteAccountModalText" xml:space="preserve">
+    <value>Do you really want to delete your account?</value>
+  </data>
   <data name="EmailIsEmpty" xml:space="preserve">
     <value>Email must be filled in</value>
   </data>
   <data name="EmailNotVerified" xml:space="preserve">
     <value>Email not verified</value>
+  </data>
+  <data name="EmailWasChanged" xml:space="preserve">
+    <value>Email was chanched</value>
   </data>
   <data name="FieldsAreNotFilledIn" xml:space="preserve">
     <value>All fields must be filled in</value>
@@ -143,6 +152,9 @@
   </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Passwords don't match</value>
+  </data>
+  <data name="PasswordWasChanged" xml:space="preserve">
+    <value>Password was chanched</value>
   </data>
   <data name="SignUpText" xml:space="preserve">
     <value>Email for confirmation was sent to your email address</value>

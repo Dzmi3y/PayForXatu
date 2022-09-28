@@ -39,15 +39,6 @@
                 FontSize="25"/>
         <Label
                 Padding="0,16,0,10"
-                x:Name="CurrentPasswordLabel"
-                Text="Current password"
-                TextColor="#828282"
-                FontFamily="ChicagoRegular"
-                FontSize="18"/>
-        <controls:BlackEntryPFX x:Name="CurrentPasswordEntry" Text="{Binding CuerrentPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
-
-        <Label
-                Padding="0,16,0,10"
                 x:Name="NewPasswordLabel"
                 Text="New password"
                 TextColor="#828282"
@@ -65,7 +56,7 @@
                 FontSize="18"/>
         <controls:BlackEntryPFX x:Name="ConfirmNewPasswordEntry" Text="{Binding ConfirmNewPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
 
-        <Grid Padding="0,0,0,0">
+        <Grid Margin="0,0,0,20" Padding="0,0,0,0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="123"/>
@@ -110,10 +101,18 @@
         </Grid>
 
         <Label
-                IsVisible="{Binding ErrorMessageIsVisible}"
+                IsVisible="{Binding EmailErrorMessageIsVisible}"
                 Padding="0,16,0,10"
-                x:Name="ErrorMessageLabel"
-                Text="{Binding ErrorMessageText}"
+                x:Name="EmailErrorMessageLabel"
+                Text="{Binding EmailErrorMessageText}"
+                TextColor="#FF5F58"
+                FontFamily="ChicagoRegular"
+                FontSize="20"/>
+        <Label
+                IsVisible="{Binding PassErrorMessageIsVisible}"
+                Padding="0,16,0,10"
+                x:Name="PassErrorMessageLabel"
+                Text="{Binding PassErrorMessageText}"
                 TextColor="#FF5F58"
                 FontFamily="ChicagoRegular"
                 FontSize="20"/>

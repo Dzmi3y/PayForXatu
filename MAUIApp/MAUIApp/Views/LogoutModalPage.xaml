@@ -2,7 +2,7 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="PayForXatu.MAUIApp.Views.LogoutModalPage"
+               x:Class="PayForXatu.MAUIApp.Views.ConfirmModalPage"
                Color="Transparent"
                x:Name="this">
 
@@ -42,7 +42,7 @@
             <Label.GestureRecognizers>
               <TapGestureRecognizer  
                 BindingContext="{x:Reference this}" 
-                Tapped="Logout_Tapped"/>
+                Tapped="Confirm_Tapped"/>
             </Label.GestureRecognizers>
           </Label>
         </Frame>

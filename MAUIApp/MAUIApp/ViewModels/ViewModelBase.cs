@@ -37,7 +37,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             {
                 var param = new NavigationParameters()
                 {
-                    {"MenuIsOpen", true},
+                    {"MenuIsOpen", false},
                     {"FlashlightIsOn", FlashlightIsOn}
                 };
 
