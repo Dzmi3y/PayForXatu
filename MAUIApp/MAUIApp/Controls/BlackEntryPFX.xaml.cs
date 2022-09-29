@@ -33,4 +33,5 @@ public partial class BlackEntryPFX : ContentView
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
     }
+    
 }

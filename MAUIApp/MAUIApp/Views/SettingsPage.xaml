@@ -19,8 +19,8 @@
                         FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
                         ZIndex="1"/>
       <StackLayout Margin="20,20,20,0" ZIndex="0" Padding="0,70,0,0">
-
-        <Label
+        <StackLayout IsVisible="{Binding EmailAndPasswordIsEnabled}">
+          <Label
                 Padding="0,0,0,14"
                 x:Name="EmailLabel"
                 Text="Change email"
@@ -28,34 +28,34 @@
                 FontFamily="ChicagoRegular"
                 FontSize="25"/>
 
-        <controls:BlackEntryPFX x:Name="EmailEntry" Text="{Binding Email, Mode=TwoWay}"  Placeholder="Email"/>
+          <controls:BlackEntryPFX x:Name="EmailEntry" Text="{Binding Email, Mode=TwoWay}"  Placeholder="Email"/>
 
-        <Label
+          <Label
                 Padding="0,16,0,10"
                 x:Name="ChangePasswordLabel"
                 Text="Change password"
                 TextColor="#828282"
                 FontFamily="ChicagoRegular"
                 FontSize="25"/>
-        <Label
+          <Label
                 Padding="0,16,0,10"
                 x:Name="NewPasswordLabel"
                 Text="New password"
                 TextColor="#828282"
                 FontFamily="ChicagoRegular"
                 FontSize="18"/>
-        <controls:BlackEntryPFX x:Name="NewPasswordEntry" Text="{Binding NewPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
+          <controls:BlackEntryPFX x:Name="NewPasswordEntry" Text="{Binding NewPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
 
 
-        <Label
+          <Label
                 Padding="0,16,0,10"
                 x:Name="ConfirmPasswordLabel"
                 Text="Confirm new password"
                 TextColor="#828282"
                 FontFamily="ChicagoRegular"
                 FontSize="18"/>
-        <controls:BlackEntryPFX x:Name="ConfirmNewPasswordEntry" Text="{Binding ConfirmNewPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
-
+          <controls:BlackEntryPFX x:Name="ConfirmNewPasswordEntry" Text="{Binding ConfirmNewPassword, Mode=TwoWay}" IsPassword="True" Placeholder="*****"/>
+        </StackLayout>
         <Grid Margin="0,0,0,20" Padding="0,0,0,0">
           <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -93,7 +93,7 @@
                 ItemDisplayBinding="{Binding Name}"
                 SelectedItem="{Binding SelectedCurrency}"
                 FontSize="25">
-                
+
               </Picker>
               <Image Scale="0.5" Grid.Column="1" Source="dropdown_arrow.png"/>
             </Grid>
@@ -145,12 +145,12 @@
           FontFamily="ChicagoRegular"
           HeightRequest="50"
           FontSize="24">
-          <Button.GestureRecognizers>
-            <TapGestureRecognizer  
+            <Button.GestureRecognizers>
+              <TapGestureRecognizer  
                         Command="{Binding RemoveAccountTapCommand}"/>
-          </Button.GestureRecognizers>
-        </Button>
-          </Grid>
+            </Button.GestureRecognizers>
+          </Button>
+        </Grid>
 
       </StackLayout>
 

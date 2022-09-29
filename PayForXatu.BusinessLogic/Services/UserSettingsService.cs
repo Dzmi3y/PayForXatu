@@ -133,9 +133,15 @@ namespace PayForXatu.BusinessLogic.Services
             }
         }
 
-        public async Task DeleteAccountAsync(string firebaseToken)
+        public async Task DeleteAccountAsync(string firebaseToken, string userId)
         {
-            //await _fbProvider.DeleteUserAsync(firebaseToken);
+            await _fbProvider.DeleteUserAsync(firebaseToken);
+            var userSettingsList = await _firebaseRepository.GetListOfChildsAsync<UserSettings>();
+            var userSettings = userSettingsList.FirstOrDefault(x => x.UserId == userId);
+            if (userSettings != null)
+            {
+               await _firebaseRepository.DeleteAsync<UserSettings>(userSettings.Id);
+            }
         }
 
         private static bool IsValidEmail(string email)
@@ -171,7 +177,7 @@ namespace PayForXatu.BusinessLogic.Services
         Task UpdateUserSettingsAsync(UserSettings newUserSettings);
         Task<ChangePasswordResponceDTO> ChangePassword(ChangePasswordDTO changePasswordDTO);
         Task<ChangeEmailResponceDTO> ChangeEmail(string userId, string newEmail);
-        Task DeleteAccountAsync(string firebaseToken);
+        Task DeleteAccountAsync(string firebaseToken, string userId);
     }
 
 }

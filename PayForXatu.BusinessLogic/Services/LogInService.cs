@@ -50,7 +50,9 @@ namespace PayForXatu.BusinessLogic.Services
                 {
                     Email = user.Email,
                     UserId = user.LocalId,
-                    UserSettings = userSettings
+                    UserSettings = userSettings,
+                    FirebaseToken = firebaseAccountLink.FirebaseToken,
+                    IsEmailProvider = true
                 };
 
                 return logInResponseDTO;
@@ -105,7 +107,9 @@ namespace PayForXatu.BusinessLogic.Services
                 {
                     Email = user.Email,
                     UserId = user.LocalId,
-                    UserSettings = userSettings
+                    UserSettings = userSettings,
+                    FirebaseToken = firebaseAccountLink.FirebaseToken,
+                    IsEmailProvider = false
                 };
 
                 return logInResponseDTO;

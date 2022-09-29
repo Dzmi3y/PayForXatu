@@ -1,4 +1,5 @@
 ﻿using Android.App.AppSearch;
+using Java.Security;
 using Javax.Security.Auth;
 using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
@@ -29,6 +30,7 @@ namespace PayForXatu.MAUIApp.ViewModels
         private bool _emailErrorMessageIsVisible;
         private string _passErrorMessageText;
         private bool _passErrorMessageIsVisible;
+        private bool _emailAndPasswordIsEnabled;
 
         public SettingsPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
             ICurrencyService currencyService, IUserSettingsService userSettingsService)
@@ -44,6 +46,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             EmailErrorMessageText = String.Empty;
             PassErrorMessageIsVisible = false;
             PassErrorMessageText = String.Empty;
+            EmailAndPasswordIsEnabled = CurrentUser.IsEmailProvider;
         }
 
         private async Task<bool> ChangeCurrencyAsync()
@@ -66,6 +69,12 @@ namespace PayForXatu.MAUIApp.ViewModels
             CurrenciesList = await _currencyService.GetCurrencyListAsync();
             SelectedCurrency = CurrenciesList.
                 FirstOrDefault(x => x.Id == CurrentUser.UserSettings.Currency.Id);
+        }
+
+        public bool EmailAndPasswordIsEnabled
+        {
+            get { return _emailAndPasswordIsEnabled; }
+            set { SetProperty(ref _emailAndPasswordIsEnabled, value); }
         }
 
         public List<Currency> CurrenciesList
@@ -136,29 +145,55 @@ namespace PayForXatu.MAUIApp.ViewModels
             EmailErrorMessageText = String.Empty;
             PassErrorMessageIsVisible = false;
             PassErrorMessageText = String.Empty;
+            ChangeEmailResponceDTO changeEmailResult = await ChangeEmail();
 
-            var changeEmailResult = await _userSettingsService.ChangeEmail(CurrentUser.UserId, Email);
-            if (!changeEmailResult.IsSuccess)
+            ChangePasswordResponceDTO changePasswordResult = await ChangePassword();
+
+            var currencyChanged = await ChangeCurrencyAsync();
+
+            if (changePasswordResult.Status == ChangePasswordStatusEnum.FieldsAreNotFilledIn &&
+                changeEmailResult.Status == ChangeEmailResponseStatusEnum.FieldIsNotFilledIn &&
+                !currencyChanged)
             {
-                EmailErrorMessageIsVisible = true;
-                switch (changeEmailResult.Status)
-                {
-
-                    case ChangeEmailResponseStatusEnum.IncorrectEmail:
-                        EmailErrorMessageText = AppRes.IncorrectEmail;
-                        break;
-
-                    case ChangeEmailResponseStatusEnum.UserAlreadyExists:
-                        EmailErrorMessageText = AppRes.UserAlreadyExists;
-                        break;
-
-                    case ChangeEmailResponseStatusEnum.Exception:
-                        EmailErrorMessageText = changeEmailResult.Message;
-                        break;
-                }
+                return;
             }
 
+            OpenModalWindow(changeEmailResult, changePasswordResult, currencyChanged);
 
+        }
+
+        private void OpenModalWindow(ChangeEmailResponceDTO changeEmailResult, ChangePasswordResponceDTO changePasswordResult, bool currencyChanged)
+        {
+            string message = string.Empty;
+
+            if (changeEmailResult.IsSuccess &&
+                changeEmailResult.Status != ChangeEmailResponseStatusEnum.FieldIsNotFilledIn)
+            {
+                Email = string.Empty;
+                message = AppRes.EmailWasChanged + "\n";
+            }
+
+            if (changePasswordResult.IsSuccess &&
+                changePasswordResult.Status != ChangePasswordStatusEnum.FieldsAreNotFilledIn)
+            {
+                NewPassword = string.Empty;
+                ConfirmNewPassword = string.Empty;
+                message += AppRes.PasswordWasChanged + "\n";
+            }
+
+            if (currencyChanged)
+            {
+                message += AppRes.CurrencyWasChanged;
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                OpenModal.Invoke(message);
+            }
+        }
+
+        private async Task<ChangePasswordResponceDTO> ChangePassword()
+        {
             var chPassDTO = new ChangePasswordDTO()
             {
                 UserId = CurrentUser.UserId,
@@ -182,43 +217,33 @@ namespace PayForXatu.MAUIApp.ViewModels
                 }
             }
 
-            var currencyChanged = await ChangeCurrencyAsync();
+            return changePasswordResult;
+        }
 
-            if (changePasswordResult.Status==ChangePasswordStatusEnum.FieldsAreNotFilledIn &&
-                changeEmailResult.Status==ChangeEmailResponseStatusEnum.FieldIsNotFilledIn &&
-                !currencyChanged)
+        private async Task<ChangeEmailResponceDTO> ChangeEmail()
+        {
+            var changeEmailResult = await _userSettingsService.ChangeEmail(CurrentUser.UserId, Email);
+            if (!changeEmailResult.IsSuccess)
             {
-                return;
+                EmailErrorMessageIsVisible = true;
+                switch (changeEmailResult.Status)
+                {
+
+                    case ChangeEmailResponseStatusEnum.IncorrectEmail:
+                        EmailErrorMessageText = AppRes.IncorrectEmail;
+                        break;
+
+                    case ChangeEmailResponseStatusEnum.UserAlreadyExists:
+                        EmailErrorMessageText = AppRes.UserAlreadyExists;
+                        break;
+
+                    case ChangeEmailResponseStatusEnum.Exception:
+                        EmailErrorMessageText = changeEmailResult.Message;
+                        break;
+                }
             }
 
-            if (changePasswordResult.IsSuccess || changeEmailResult.IsSuccess || currencyChanged)
-            {
-
-                string message = string.Empty;
-
-                if (changeEmailResult.IsSuccess &&
-                    changeEmailResult.Status!=ChangeEmailResponseStatusEnum.FieldIsNotFilledIn)
-                {
-                    Email = string.Empty;
-                    message = AppRes.EmailWasChanged + "\n";
-                }
-
-                if (changePasswordResult.IsSuccess &&
-                    changePasswordResult.Status!=ChangePasswordStatusEnum.FieldsAreNotFilledIn)
-                {
-                    NewPassword = string.Empty;
-                    ConfirmNewPassword = string.Empty;
-                    message += AppRes.PasswordWasChanged + "\n";
-                }
-
-                if (currencyChanged)
-                {
-                    message += AppRes.CurrencyWasChanged;
-                }
-
-                OpenModal.Invoke(message);
-            }
-
+            return changeEmailResult;
         }
 
         private void OpenDeleteModal()
@@ -228,7 +253,7 @@ namespace PayForXatu.MAUIApp.ViewModels
 
         private async Task DeleteAccountAsync()
         {
-            await _userSettingsService.DeleteAccountAsync(CurrentUser.UserId);
+            await _userSettingsService.DeleteAccountAsync(CurrentUser.FirebaseToken, CurrentUser.UserId);
             SetCurrentUser(null);
             await _navigationService.NavigateAsync("NavigationPage/LoginPage");
         }
