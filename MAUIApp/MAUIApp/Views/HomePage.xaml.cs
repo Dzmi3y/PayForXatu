@@ -9,6 +9,7 @@ public partial class HomePage : BasePage
     {
        
         InitializeComponent();
+        //sButtomFrame.CornerRadius = new CornerRadius(50,0,0,0);
 
     }
 }

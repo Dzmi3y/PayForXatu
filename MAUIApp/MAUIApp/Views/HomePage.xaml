@@ -4,6 +4,7 @@
              x:Class="PayForXatu.MAUIApp.Views.HomePage"
              xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views;assembly=Pulse.Mobile"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
+             xmlns:paymentList="clr-namespace:PayForXatu.MAUIApp.Controls.PaymentsList"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
@@ -19,11 +20,61 @@
                         FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
                         ZIndex="1"/>
       <StackLayout ZIndex="0" Padding="0,70,0,0">
+        <Label Text="Saved payments"
+               TextColor="#BDBDBD"
+               FontFamily="ChicagoRegular"
+               Margin="0,100,0,20"
+               HorizontalOptions="Center"
+               FontSize="25"/>
+        <ScrollView>
+          <StackLayout>
+          <paymentList:CountersCountrol Counters="{Binding Counters}"/>
+          <Button Text="Add payment"
+                FontFamily="ChicagoRegular"
+                TextColor="#000"
+                FontSize="25"
+                BackgroundColor="#C8C8C8"
+                CornerRadius="20"
+                WidthRequest="177"
+                HeightRequest="42"
+                Padding="0,0,0,0"
+                Margin="0,20,0,0"
+                HorizontalOptions="Center"/>
+          </StackLayout>
+        </ScrollView>
 
-    </StackLayout>
-     
-     </Grid>
-        
-    </ContentPage.Content>
+        <StackLayout VerticalOptions="EndAndExpand" >
+
+          <Border Stroke="#BDBDBD"
+        StrokeThickness="0"
+        Background="#BDBDBD">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="30,30,0,0" />
+            </Border.StrokeShape>
+            <Frame x:Name="ButtomFrame" CornerRadius="0" BackgroundColor="#959595" HeightRequest="70">
+            
+            <Button Text="Save payments"
+                    VerticalOptions="Start"
+                    FontFamily="ChicagoRegular"
+                    TextColor="#BDBDBD"
+                    FontSize="25"
+                    CornerRadius="10"
+                    Padding="0,0,0,0"
+                    HeightRequest="42"
+                    WidthRequest="296"
+                    BackgroundColor="#333"/> 
+          </Frame>
+          </Border>
+          
+        </StackLayout>
+
+
+
+
+      </StackLayout>
+
+    </Grid>
+
+  </ContentPage.Content>
 
 </views:BasePage>

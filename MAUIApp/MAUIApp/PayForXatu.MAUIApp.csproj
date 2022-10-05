@@ -71,7 +71,9 @@
     <None Remove="Resources\Images\analytics.png" />
     <None Remove="Resources\Images\analytics_selected.png" />
     <None Remove="Resources\Images\back_button_image.png" />
+    <None Remove="Resources\Images\check_mark.png" />
     <None Remove="Resources\Images\dropdown_arrow.png" />
+    <None Remove="Resources\Images\edit_icon.png" />
     <None Remove="Resources\Images\flashlight_off.png" />
     <None Remove="Resources\Images\flashlight_on.png" />
     <None Remove="Resources\Images\hamburger_menu.png" />
@@ -126,6 +128,9 @@
     <Compile Update="Controls\BlackBackButtonPFX.xaml.cs">
       <DependentUpon>BlackBackButtonPFX.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Controls\PaymentsList\CounterValues.xaml.cs">
+      <DependentUpon>CounterValues.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resources\AppRes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -158,6 +163,15 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Controls\MenuPFX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Controls\PaymentsList\CountersCountrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Controls\PaymentsList\CounterValues.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Controls\WhiteEntryPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\AnalyticsPage.xaml">
