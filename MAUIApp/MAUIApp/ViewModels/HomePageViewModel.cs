@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Java.Sql;
+using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.Services;
+using PayForXatu.Database.Models;
 using PayForXatu.MAUIApp.Controls.PaymentsList;
-using PayForXatu.MAUIApp.Views;
-using System;
-using System.Collections.Generic;
+using PayForXatu.MAUIApp.Models;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace PayForXatu.MAUIApp.ViewModels
@@ -16,141 +13,251 @@ namespace PayForXatu.MAUIApp.ViewModels
     public class HomePageViewModel :ViewModelBase
     {
 
-        private ObservableCollection<Counter> _counters;
+        private ObservableCollection<PaymentModel> _counters;
+        private ObservableCollection<CounterValueModel> _selectedCounterValueList;
+        private string _paymentName;
+        private bool _editModeIsVisible;
+        private bool _isEditMode;
+        private PaymentModel _selectedCounter;
+        private IHistoryPaymentService _historyPaymentService;
+        private IPaymentService _paymentService;
         public HomePageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
-            ICurrencyService currencyService)
+            ICurrencyService currencyService, IHistoryPaymentService historyPaymentService,
+            IPaymentService paymentService)
             : base(navigationService, memoryCache, currencyService)
         {
             Title = "Home";
-            Counters = new ObservableCollection<Counter>();
+            _historyPaymentService = historyPaymentService;
+            _paymentService= paymentService;
 
-     
-
-           var counterValues = new ObservableCollection<CounterValue>();
-            counterValues.Add(new CounterValue { Title = "Counter #1", Value = 123 });
-            counterValues.Add(new CounterValue { Title = "Counter #2", Value = 456 });
-
-            Counters.Add(new Counter
-            {
-                CounterValues = counterValues,
-                IsFilledIn = false,
-                IsExpanded = false,
-                Title = "Counter 1",
-                SequenceNumber = 0
-
-            }) ;
-
-            Counters.Add(new Counter
-            {
-                IsFilledIn = false,
-                IsExpanded = false,
-                Title = "Counter 2",
-                SequenceNumber = 1
-
+            SavePaymentButtonCommand = new Command(() => {
+                if (OpenSavePaymentDataModal != null)
+                    OpenSavePaymentDataModal.Invoke(SavePaymentData);
             });
+
+            CloseEditGridCommand = new Command(() => {
+                if (CloseEditGridModal != null)
+                    CloseEditGridModal.Invoke(CloseEditGrid);
+            });
+
+            RemovePaymentDataCommand = new Command(() => {
+                if (RemovePaymentDataModal != null)
+                    RemovePaymentDataModal.Invoke(async () => await RemovePaymentDataAsync());
+            });
+
+            SaveChangesPaymentDataCommand = new Command(() => {
+                if (SaveChangesPaymentDataModal != null)
+                    SaveChangesPaymentDataModal.Invoke(async () => await SaveChangesPaymentDataAsync());
+            });
+
+            RemovePaymentItemCommand = new Command((param) => { RemovePaymentItem(param); });
+            AddCounterItemCommand = new Command(AddCounterItem);
+            OpenEditGridCommand = new Command((param) => OpenEditGrid(param));
+            
+            Counters = new ObservableCollection<PaymentModel>();
+
+            PaymentName = string.Empty;
+            Task fillPaymentListTask = FillPaymentListAsync();
+
+            Counters.CollectionChanged += Counters_CollectionChanged;
         }
 
-        public ObservableCollection<Counter> Counters
+
+        private void Counters_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            for (var i = 0; i < Counters.Count; i++)
+            {
+                Counters[i].SequenceNumber = i;
+            }
+        }
+
+        private async Task FillPaymentListAsync()
+        {
+            var payments = await _paymentService.GetSavedPaymentsAsync(CurrentUser.UserId);
+            foreach (var payment in payments)
+            {
+                var counterValues = new ObservableCollection<CounterValueModel>();
+                var counterValuesList = payment.Counters
+                    .Select((counterName) => new CounterValueModel() { Title = counterName })
+                    .ToList<CounterValueModel>();
+                counterValuesList.ForEach((cvm)=>counterValues.Add(cvm));
+
+                var counter = new PaymentModel()
+                {
+                    CounterValues = counterValues,
+                    IsFilledIn = false,
+                    IsExpanded = false,
+                    TemplatePaymentId = payment.Id,
+                    PaymentId = Guid.NewGuid(),
+                    Title = payment.PaymentName,
+                };
+                Counters.Add(counter);
+            }
+            
+        }
+
+        public ObservableCollection<CounterValueModel> SelectedCounterValueList
+        {
+            get { return _selectedCounterValueList; }
+            set { SetProperty(ref _selectedCounterValueList, value); }
+        }
+
+        public ObservableCollection<PaymentModel> Counters
         {
             get { return _counters; }
             set { SetProperty(ref _counters, value); }
         }
 
-    }
-
-    public class CounterValue : BindableBase
-    {
-        private double _value;
-
-        public event Action ValueWasChangedEvent;
-
-
-        public string Title { get; set; }
-        public double Value
+        public string PaymentName
         {
-            get { return _value; }
-            set {
-                SetProperty(ref _value, value);
-                if(ValueWasChangedEvent!=null)
-                    ValueWasChangedEvent.Invoke();
+            get { return _paymentName; }
+            set { SetProperty(ref _paymentName, value); }
+        }
+
+        public bool EditModeIsVisible
+        {
+            get { return _editModeIsVisible; }
+            set { SetProperty(ref _editModeIsVisible, value); }
+        }
+
+        public bool IsEditMode
+        {
+            get { return _isEditMode; }
+            set { SetProperty(ref _isEditMode, value); }
+        }
+
+        public Action<Action> OpenSavePaymentDataModal { get; set; }
+        public Action<Action> CloseEditGridModal { get; set; }
+        public Action<Action> SaveChangesPaymentDataModal { get; set; }
+        public Action<Action> RemovePaymentDataModal { get; set; }
+
+        public ICommand RemovePaymentItemCommand { get; set; }
+        public ICommand SavePaymentButtonCommand { get; set; }
+        public ICommand AddCounterItemCommand { get; set; }
+        public ICommand OpenEditGridCommand { get; set; }
+        public ICommand CloseEditGridCommand { get; set; }
+        public ICommand RemovePaymentDataCommand { get; set; }
+        public ICommand SaveChangesPaymentDataCommand { get; set; }
+
+        private void OpenEditGrid(Object param)
+        {
+            _selectedCounter = param as PaymentModel;
+            IsEditMode = _selectedCounter != null;
+            EditModeIsVisible = true;
+            if (IsEditMode)
+            {
+                SelectedCounterValueList = new ObservableCollection<CounterValueModel>();
+                PaymentName = _selectedCounter.Title;
+                _selectedCounter.CounterValues.ToList().ForEach((cv) => SelectedCounterValueList.Add(cv));
+            }
+            else
+            {
+                PaymentName = String.Empty;
+
+                _selectedCounter = new PaymentModel()
+                {
+                    TemplatePaymentId = Guid.NewGuid(),
+                    CounterValues = new ObservableCollection<CounterValueModel>()
+                };
+
+                SelectedCounterValueList = _selectedCounter.CounterValues;
             }
         }
 
-
-    }
-
-    public class Counter : BindableBase
-    {
-        private ObservableCollection<CounterValue> _counterValues;
-        private string _title;
-        private bool _isExpanded;
-        private bool _isFilledIn;
-        private double _paymentAmmountValue;
-        private int _sequenceNumber;
-        private bool _isEvenItem;
-
-        public Counter()
+        private void CloseEditGrid()
         {
-            ExpandSwitchTappedCommand = new Command( () => { IsExpanded = !IsExpanded; });
+            EditModeIsVisible = false;
+            _selectedCounter = null;
         }
 
-
-
-        public ICommand ExpandSwitchTappedCommand { get; set; }
-
-        public ObservableCollection<CounterValue> CounterValues
+        private void AddCounterItem()
         {
-            get { return _counterValues; }
-            set {
-                SetProperty(ref _counterValues, value);
-                value.ToList().ForEach(x => x.ValueWasChangedEvent += OnChangedValue);
+            SelectedCounterValueList.Add(new CounterValueModel() { CounterId = Guid.NewGuid()});
+        }
+
+        private  void RemovePaymentItem(object param)
+        {
+            var counterName = (CounterValueModel)param;
+            SelectedCounterValueList.Remove(counterName);
+        }
+
+        private void SavePaymentData()
+        {
+            var paymentsList = Counters.Where(c => c.IsFilledIn)
+                .Select(c => new Payment()
+                {
+                    Id = c.TemplatePaymentId,
+                    UserId = CurrentUser.UserId,
+                    Amount = c.PaymentAmountValue,
+                    Date = DateTime.Now,
+                    PaymentName = c.Title,
+                    Counters = c.CounterValues
+                        .Select(cv => new Counter() {
+                            CounterName = cv.Title,
+                            CounterValue = cv.Value })
+                        .ToList()
+                }).ToList();
+
+            _historyPaymentService.AddPaymentsListAsync(paymentsList);
+
+            foreach (var payment in Counters.Where(c=>c.IsFilledIn))
+            {
+                payment.ClearCounters();
             }
+
         }
 
-
-        public bool IsEvenItem
+        private async Task SaveChangesPaymentDataAsync()
         {
-            get { return _isEvenItem; }
-            private set { SetProperty(ref _isEvenItem, value); }
-        }
-
-        public int SequenceNumber
-        {
-            get { return _sequenceNumber; }
-            set {
-                SetProperty(ref _sequenceNumber, value);
-                IsEvenItem = value%2==0;
+            for (var i = 0; i < _selectedCounter.CounterValues.Count; i++)
+            {
+                if (string.IsNullOrEmpty(_selectedCounter.CounterValues[i].Title))
+                    _selectedCounter.CounterValues[i].Title =$"Counter #{i}";
             }
-        }
+            _selectedCounter.CounterValuesWasUpdated();
 
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-            set { SetProperty(ref _isExpanded, value); }
-        }
-        public bool IsFilledIn
-        {
-            get { return _isFilledIn; }
-            set { SetProperty(ref _isFilledIn, value); }
-        }
+            if (IsEditMode)
+            {
+                _selectedCounter.Title = string.IsNullOrEmpty(PaymentName) ?
+                    DateTime.Now.ToString():
+                    PaymentName;
 
-        public double PaymentAmmountValue
-        {
-            get { return _paymentAmmountValue; }
-            set {
-                SetProperty(ref _paymentAmmountValue, value);
-                IsFilledIn = value > 0;
+                _selectedCounter.CounterValues = SelectedCounterValueList;
+
+                var savedPayment = await _paymentService.GetSavedPaymentByIdAsync(_selectedCounter.TemplatePaymentId);
+                savedPayment.PaymentName = PaymentName;
+                savedPayment.Counters = _selectedCounter.CounterValues
+                                             .Select((cv) => cv.Title)
+                                             .ToList();
+
+                await _paymentService.UpdatePaymentAsync(savedPayment);
             }
-        }
+            else
+            {
+                _selectedCounter.Title = string.IsNullOrEmpty(PaymentName) ?
+                    DateTime.Now.ToString():
+                    PaymentName;
 
-        public void OnChangedValue()
+                var newPaymentTemplate = new SavedPayment()
+                {
+                    Id=_selectedCounter.TemplatePaymentId,
+                    UserId=CurrentUser.UserId,
+                    PaymentName= _selectedCounter.Title,
+                    Counters=_selectedCounter.CounterValues
+                                             .Select((cv) => cv.Title)
+                                             .ToList()
+                };
+
+                await _paymentService.AddPaymentAsync(newPaymentTemplate);
+                Counters.Add(_selectedCounter);
+            }
+            CloseEditGrid();
+        }
+        private async Task RemovePaymentDataAsync()
         {
-            PaymentAmmountValue = CounterValues.Select(x => x.Value).Sum();   
+            Counters.Remove(_selectedCounter);
+            await _paymentService.RemovePaymentAsync(_selectedCounter.TemplatePaymentId);
+            CloseEditGrid();
         }
     }
 }

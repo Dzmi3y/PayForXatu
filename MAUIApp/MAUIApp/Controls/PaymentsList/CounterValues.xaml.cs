@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Platform;
+using PayForXatu.MAUIApp.Models;
 using PayForXatu.MAUIApp.ViewModels;
 using System.Collections.ObjectModel;
 
@@ -12,12 +13,12 @@ public partial class CounterValues : ContentView
     }
 
     public static readonly BindableProperty CounterValuesListProperty = BindableProperty.Create(
-        "CounterValuesList", typeof(ObservableCollection<CounterValue>),
-        typeof(ObservableCollection<CounterValue>), new ObservableCollection<CounterValue>());
+        "CounterValuesList", typeof(ObservableCollection<CounterValueModel>),
+        typeof(ObservableCollection<CounterValueModel>), new ObservableCollection<CounterValueModel>());
 
-    public ObservableCollection<CounterValue> CounterValuesList
+    public ObservableCollection<CounterValueModel> CounterValuesList
     {
-        get => (ObservableCollection<CounterValue>)GetValue(CounterValuesListProperty);
+        get => (ObservableCollection<CounterValueModel>)GetValue(CounterValuesListProperty);
         set => SetValue(CounterValuesListProperty, value);
     }
 

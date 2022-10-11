@@ -61,6 +61,15 @@ namespace PayForXatu.MAUIApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All unsaved changes are deleted. Do you really want to get out?.
+        /// </summary>
+        internal static string CloseEditGrid {
+            get {
+                return ResourceManager.GetString("CloseEditGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency was chanched.
         /// </summary>
         internal static string CurrencyWasChanged {
@@ -174,6 +183,33 @@ namespace PayForXatu.MAUIApp.Resources {
         internal static string PasswordWasChanged {
             get {
                 return ResourceManager.GetString("PasswordWasChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete the payment?.
+        /// </summary>
+        internal static string RemovePaymentData {
+            get {
+                return ResourceManager.GetString("RemovePaymentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to save the changes?.
+        /// </summary>
+        internal static string SaveChangesPaymentData {
+            get {
+                return ResourceManager.GetString("SaveChangesPaymentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save payments?.
+        /// </summary>
+        internal static string SavePaymentData {
+            get {
+                return ResourceManager.GetString("SavePaymentData", resourceCulture);
             }
         }
         

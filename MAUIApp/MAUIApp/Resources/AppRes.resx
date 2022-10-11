@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CloseEditGrid" xml:space="preserve">
+    <value>All unsaved changes are deleted. Do you really want to get out?</value>
+  </data>
   <data name="CurrencyWasChanged" xml:space="preserve">
     <value>Currency was chanched</value>
   </data>
@@ -155,6 +158,15 @@
   </data>
   <data name="PasswordWasChanged" xml:space="preserve">
     <value>Password was chanched</value>
+  </data>
+  <data name="RemovePaymentData" xml:space="preserve">
+    <value>Do you really want to delete the payment?</value>
+  </data>
+  <data name="SaveChangesPaymentData" xml:space="preserve">
+    <value>Do you really want to save the changes?</value>
+  </data>
+  <data name="SavePaymentData" xml:space="preserve">
+    <value>Do you want to save payments?</value>
   </data>
   <data name="SignUpText" xml:space="preserve">
     <value>Email for confirmation was sent to your email address</value>

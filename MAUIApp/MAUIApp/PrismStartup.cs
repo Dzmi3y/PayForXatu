@@ -17,8 +17,8 @@ namespace PayForXatu.MAUIApp
         public static void Configure(PrismAppBuilder builder)
         {
             builder.RegisterTypes(RegisterTypes)
-                    // .OnAppStart("NavigationPage/LoginPage");
-                     .OnAppStart("NavigationPage/HomePage");
+                     .OnAppStart("NavigationPage/LoginPage");
+                     //.OnAppStart("NavigationPage/HomePage");
         }
 
         public static async Task FirebaseInitAsync(IConfiguration Configuration)
@@ -61,6 +61,9 @@ namespace PayForXatu.MAUIApp
             containerRegistry.RegisterScoped<IForgotPasswordService, ForgotPasswordService>();
             containerRegistry.RegisterScoped<ICurrencyService, CurrencyService>();
             containerRegistry.RegisterScoped<IUserSettingsService, UserSettingsService>();
+            containerRegistry.RegisterScoped<IHistoryPaymentService, HistoryPaymentService>();
+            containerRegistry.RegisterScoped<IPaymentService, PaymentService>();
+            
 
 
             containerRegistry.RegisterSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));

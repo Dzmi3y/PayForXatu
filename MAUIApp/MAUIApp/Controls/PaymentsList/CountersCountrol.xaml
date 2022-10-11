@@ -9,6 +9,7 @@
                 Margin="0,0,0,0"
                 VerticalOptions="FillAndExpand"
                 SelectionMode="None"
+                x:Name="CountersCollection"
                 BindingContext="{x:Reference this}"
                 ItemsSource="{Binding Counters, Mode=TwoWay}">
     <CollectionView.ItemTemplate>
@@ -65,7 +66,14 @@
                    VerticalOptions="Center"
                    FontFamily="ChicagoRegular" FontSize="25"/>
               <Image IsVisible="{Binding IsFilledIn}" Grid.Column="2" Margin="0,12,0,12" Source="check_mark.png"/>
-              <Image Grid.Column="3" Margin="0,12,0,12" Source="edit_icon.png"/>
+              <Image Grid.Column="3" Margin="0,12,0,12" Source="edit_icon.png">
+                <Image.GestureRecognizers>
+                  <TapGestureRecognizer
+                    Command="{Binding Path=BindingContext.OpenEditGridCommand,
+                                          Source={Reference CountersCollection}}"
+                                CommandParameter="{Binding .}"/>
+                </Image.GestureRecognizers>
+              </Image>
             </Grid>
             <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" IsVisible="{Binding IsExpanded}">
               <paymentList:CounterValues CounterValuesList="{Binding CounterValues}"/>
@@ -83,7 +91,7 @@
                      VerticalOptions="Center"
                      FontFamily="ChicagoRegular"/>
                 <controls:WhiteEntryPFX Grid.Column="1"
-                     Text="{Binding PaymentAmmountValue, Mode=TwoWay}"/>
+                     Text="{Binding PaymentAmountValue, Mode=TwoWay}"/>
               </Grid>
 
             </StackLayout>

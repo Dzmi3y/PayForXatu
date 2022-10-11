@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,10 @@ namespace PayForXatu.Database
                 return "user_settings";
             if (t == typeof(Currency))
                 return "currencies";
+            if (t == typeof(SavedPayment))
+                return "saved_pymnets";
+            if (t == typeof(Payment))
+                return "payments_history";
 
             throw new Exception("Type is not found");
         }

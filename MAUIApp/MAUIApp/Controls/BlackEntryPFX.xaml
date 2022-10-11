@@ -8,6 +8,7 @@
     <StackLayout>
       <Frame BackgroundColor="#333" CornerRadius="10" Margin="0" Padding="10,0,10,4" BorderColor="#333" HeightRequest="50">
         <controls:EntryPFX
+                x:Name="Entry1"
                 BindingContext="{x:Reference this}"
                 Placeholder="{Binding Placeholder, Mode=TwoWay}"
                 Text="{Binding Text, Mode=TwoWay}"

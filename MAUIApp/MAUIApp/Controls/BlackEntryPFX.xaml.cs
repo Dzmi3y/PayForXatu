@@ -2,10 +2,10 @@ namespace PayForXatu.MAUIApp.Controls;
 
 public partial class BlackEntryPFX : ContentView
 {
-	public BlackEntryPFX()
-	{
-		InitializeComponent();
-	}
+    public BlackEntryPFX()
+    {
+        InitializeComponent();
+    }
 
     public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
          "Placeholder", typeof(string), typeof(string), "");
@@ -33,5 +33,4 @@ public partial class BlackEntryPFX : ContentView
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
     }
-    
 }

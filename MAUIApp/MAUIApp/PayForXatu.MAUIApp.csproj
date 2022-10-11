@@ -72,6 +72,7 @@
     <None Remove="Resources\Images\analytics_selected.png" />
     <None Remove="Resources\Images\back_button_image.png" />
     <None Remove="Resources\Images\check_mark.png" />
+    <None Remove="Resources\Images\close_icon.png" />
     <None Remove="Resources\Images\dropdown_arrow.png" />
     <None Remove="Resources\Images\edit_icon.png" />
     <None Remove="Resources\Images\flashlight_off.png" />
@@ -82,6 +83,7 @@
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\home_selected.png" />
     <None Remove="Resources\Images\logout.png" />
+    <None Remove="Resources\Images\remove_counter_icon.png" />
     <None Remove="Resources\Images\settings.png" />
     <None Remove="Resources\Images\settings_selected.png" />
     <None Remove="Resources\Splash\splash.svg" />

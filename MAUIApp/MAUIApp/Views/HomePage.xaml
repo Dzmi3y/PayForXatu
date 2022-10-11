@@ -2,11 +2,12 @@
 <views:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.HomePage"
-             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views;assembly=Pulse.Mobile"
+             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
              xmlns:paymentList="clr-namespace:PayForXatu.MAUIApp.Controls.PaymentsList"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
+             x:Name="this"
              BackgroundColor="Black">
   <ContentPage.Content>
 
@@ -18,18 +19,28 @@
                         TapMenuCommand="{Binding TapMenuCommand}"
                         MenuIsOpen="{Binding MenuIsOpen}"
                         FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
-                        ZIndex="1"/>
-      <StackLayout ZIndex="0" Padding="0,70,0,0">
-        <Label Text="Saved payments"
+                        ZIndex="2"/>
+      <Grid ZIndex="0" Padding="0,0,0,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="150"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0"
+               x:Name="TitleLabel"
+               Text="Saved payments"
                TextColor="#BDBDBD"
                FontFamily="ChicagoRegular"
                Margin="0,100,0,20"
                HorizontalOptions="Center"
                FontSize="25"/>
-        <ScrollView>
+
+        <ScrollView Grid.Row="1" VerticalOptions="FillAndExpand" >
           <StackLayout>
-          <paymentList:CountersCountrol Counters="{Binding Counters}"/>
-          <Button Text="Add payment"
+            <paymentList:CountersCountrol Counters="{Binding Counters}"  OpenEditGridCommand="{Binding OpenEditGridCommand}"/>
+            <Button Text="Add payment"
+                Command="{Binding OpenEditGridCommand}"
                 FontFamily="ChicagoRegular"
                 TextColor="#000"
                 FontSize="25"
@@ -43,17 +54,17 @@
           </StackLayout>
         </ScrollView>
 
-        <StackLayout VerticalOptions="EndAndExpand" >
+        <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand" >
 
           <Border Stroke="#BDBDBD"
-        StrokeThickness="0"
-        Background="#BDBDBD">
+            StrokeThickness="0"
+            Background="#BDBDBD">
             <Border.StrokeShape>
               <RoundRectangle CornerRadius="30,30,0,0" />
             </Border.StrokeShape>
             <Frame x:Name="ButtomFrame" CornerRadius="0" BackgroundColor="#959595" HeightRequest="70">
-            
-            <Button Text="Save payments"
+              <Button Text="Save payments"
+                    Command="{Binding SavePaymentButtonCommand}"
                     VerticalOptions="Start"
                     FontFamily="ChicagoRegular"
                     TextColor="#BDBDBD"
@@ -62,17 +73,138 @@
                     Padding="0,0,0,0"
                     HeightRequest="42"
                     WidthRequest="296"
-                    BackgroundColor="#333"/> 
-          </Frame>
+                    BackgroundColor="#333"/>
+            </Frame>
           </Border>
-          
         </StackLayout>
 
+      </Grid>
 
 
+      <Grid x:Name="EditModeGrid" IsVisible="{Binding EditModeIsVisible}" ZIndex="1" Padding="0,70,0,0" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Stroke="#959595"
+        StrokeThickness="0"
+        Background="#959595">
+          <Border.StrokeShape>
+            <RoundRectangle CornerRadius="30,30,0,0" />
+          </Border.StrokeShape>
 
-      </StackLayout>
+          <Frame CornerRadius="0" BackgroundColor="#959595">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="120"/>
+              </Grid.RowDefinitions>
 
+              <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+                  <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <controls:BlackEntryPFX
+                     x:Name="PaymentNameEntry"
+                    Text="{Binding PaymentName, Mode=TwoWay}"
+                    Grid.Column="0"
+                    Placeholder="Payment Name"
+                    Margin="20,0,0,0"
+                  />
+                <Image HorizontalOptions="End" Grid.Column="1" Scale="0.9" Source="close_icon.png" Margin="0,0,20,0">
+                  <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseEditGridCommand}"/>
+                  </Image.GestureRecognizers>
+                </Image>
+              </Grid>
+
+              <Line Grid.Row="1" HeightRequest="3" BackgroundColor="#110101" Margin="20,20,20,20"/>
+              <Grid Grid.Row="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <ScrollView x:Name="ScrollView1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20,0,20,0">
+                  <StackLayout VerticalOptions="FillAndExpand">
+
+                    <CollectionView x:Name="CounterListView"
+                    SelectionMode="None"
+                    Margin="0,0,-30,0"
+                    ItemsSource="{Binding SelectedCounterValueList}">
+                      <CollectionView.ItemTemplate>
+                        <DataTemplate x:Name="DataTemplate1">
+                          <Grid  Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition/>
+                              <ColumnDefinition Width="110"/>
+                            </Grid.ColumnDefinitions>
+                            <controls:BlackEntryPFX
+                            Text="{Binding Title, Mode=TwoWay}"
+                            Grid.Column="0"
+                            Placeholder="Counter name"/>
+                            <Image HorizontalOptions="End"
+                                 Grid.Column="1" 
+                                 ScaleX="2.5"
+                                 ScaleY="1"
+                                 Source="remove_counter_icon.png">
+                              <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Command="{Binding Path=BindingContext.RemovePaymentItemCommand,
+                                          Source={Reference CounterListView}}"
+                                CommandParameter="{Binding .}"
+                                Tapped="Unfocus"/>
+                              </Image.GestureRecognizers>
+                            </Image>
+                          </Grid>
+                        </DataTemplate>
+                      </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button HeightRequest="42"
+                          CornerRadius="50"
+                          WidthRequest="177"
+                          Text="Add counter"
+                          Command="{Binding AddCounterItemCommand}"
+                          FontFamily="ChicagoRegular"
+                          TextColor="#000"
+                          BackgroundColor="#C8C8C8"
+                          FontSize="25"
+                          HorizontalOptions="End"/>
+                  </StackLayout>
+                </ScrollView>
+              </Grid>
+
+              <StackLayout Grid.Row="3" VerticalOptions="EndAndExpand">
+                <Button Text="Save changes"
+                    VerticalOptions="Start"
+                    Command="{Binding SaveChangesPaymentDataCommand}"
+                    FontFamily="ChicagoRegular"
+                    TextColor="#BDBDBD"
+                    FontSize="25"
+                    CornerRadius="10"
+                    Padding="0,0,0,0"
+                    HeightRequest="42"
+                    WidthRequest="296"
+                    Margin="0,0,0,28"
+                    BackgroundColor="#333"/>
+
+                <Button Text="Remove payment"
+                    VerticalOptions="Start"
+                    Clicked="Unfocus"
+                    IsVisible="{Binding IsEditMode}"
+                    Command="{Binding RemovePaymentDataCommand}"
+                    FontFamily="ChicagoRegular"
+                    TextColor="#BDBDBD"
+                    FontSize="25"
+                    CornerRadius="10"
+                    Padding="0,0,0,0"
+                    HeightRequest="42"
+                    WidthRequest="296"
+                    BackgroundColor="#600C0C"/>
+              </StackLayout>
+            </Grid>
+          </Frame>
+
+        </Border>
+      </Grid>
     </Grid>
 
   </ContentPage.Content>
