@@ -90,7 +90,7 @@
                      FontSize="20"
                      VerticalOptions="Center"
                      FontFamily="ChicagoRegular"/>
-                <controls:WhiteEntryPFX Grid.Column="1"
+                <controls:WhiteEntryPFX Keyboard="{x:StaticExtension Member=Keyboard.Numeric}" Grid.Column="1"
                      Text="{Binding PaymentAmountValue, Mode=TwoWay}"/>
               </Grid>
 

@@ -25,7 +25,7 @@
                  Padding="0,0,0,0"
                  VerticalOptions="Start"  
                  FontFamily="ChicagoRegular"/>
-          <controls:WhiteEntryPFX  Grid.Column="1" Text="{Binding Value, Mode=TwoWay}"/>
+          <controls:WhiteEntryPFX  Keyboard="{x:StaticExtension Member=Keyboard.Numeric}" Grid.Column="1" Text="{Binding Value, Mode=TwoWay}"/>
         </Grid>
 
       </DataTemplate>

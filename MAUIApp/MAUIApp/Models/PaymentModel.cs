@@ -17,6 +17,7 @@ namespace PayForXatu.MAUIApp.Models
         public PaymentModel()
         {
             ExpandSwitchTappedCommand = new Command(() => { IsExpanded = !IsExpanded; });
+            CounterValues = new ObservableCollection<CounterValueModel>();
         }
 
         public Guid TemplatePaymentId { get; set; }

@@ -1,13 +1,11 @@
-using Microsoft.Maui;
-
 namespace PayForXatu.MAUIApp.Controls;
 
-public partial class WhiteEntryPFX : ContentView
+public partial class SearchEntryPFX : ContentView
 {
-	public WhiteEntryPFX()
-	{
-		InitializeComponent();
-	}
+    public SearchEntryPFX()
+    {
+        InitializeComponent();
+    }
 
     public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
          "Placeholder", typeof(string), typeof(string), "");
@@ -19,15 +17,12 @@ public partial class WhiteEntryPFX : ContentView
     }
 
     public static readonly BindableProperty TextProperty = BindableProperty.Create(
-        "Text", typeof(string), typeof(string), "0");
+        "Text", typeof(string), typeof(string), "");
 
     public string Text
     {
         get => (string)GetValue(TextProperty);
-        set {
-
-            SetValue(TextProperty,  string.IsNullOrEmpty(value)? "0":value) ;
-        }
+        set => SetValue(TextProperty, value);
     }
 
     public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(
@@ -38,14 +33,4 @@ public partial class WhiteEntryPFX : ContentView
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
     }
-
-    public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(
-       "Keyboard", typeof(Keyboard), typeof(Keyboard),Keyboard.Text);
-
-    public Keyboard Keyboard
-    {
-        get => (Keyboard)GetValue(KeyboardProperty);
-        set => SetValue(KeyboardProperty, value);
-    }
-    
 }

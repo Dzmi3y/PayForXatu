@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PayForXatu.MAUIApp.Controls.WhiteEntryPFX"
+             x:Class="PayForXatu.MAUIApp.Controls.SearchEntryPFX"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
              x:Name="this">
   <ContentView.Content>
     <StackLayout>
-      <Frame BackgroundColor="#C8C8C8" CornerRadius="10"
+      <Frame BackgroundColor="#FFF" CornerRadius="10"
              Margin="0,0,0,0"
-             Padding="10,-10,10,-10"
+             Padding="10,0,10,0"
              BorderColor="#C8C8C8"
-             HeightRequest="30">
+             HeightRequest="40">
         <controls:EntryPFX
                 BindingContext="{x:Reference this}"
                 Placeholder="{Binding Placeholder, Mode=TwoWay}"
                 Text="{Binding Text, Mode=TwoWay}"
                 IsPassword="{Binding IsPassword,Mode=TwoWay}"
-                Margin="0,3,0,0"
-                Background="#C8C8C8"
+                Margin="0,0,0,0"
+                Background="#FFF"
                 Keyboard="{Binding Keyboard}"
                 TextColor="#000"
-                PlaceholderColor="#BDBDBD"
-                FontFamily="Digital7Mono"
-                FontSize="30"/>
+                PlaceholderColor="#797676"
+                FontFamily="ChicagoRegular"
+                HeightRequest="38"
+                FontSize="20"/>
       </Frame>
     </StackLayout>
   </ContentView.Content>

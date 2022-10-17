@@ -3,15 +3,254 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.HistoryPage"
              NavigationPage.HasNavigationBar="False"
-             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views;assembly=Pulse.Mobile"
+             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views"
              NavigationPage.HasBackButton="False"
+             xmlns:historyPaymentControls="clr-namespace:PayForXatu.MAUIApp.Controls.HistoryPaymentList"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
              BackgroundColor="Black">
-  <controls:MenuPFX Title="{Binding Title}"
-                    TapMenuCommand="{Binding TapMenuCommand}"
-                    MenuIsOpen="{Binding MenuIsOpen}"
-                    FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
+  <ContentPage.Content>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <controls:MenuPFX Title="{Binding Title}"
+                        TapMenuCommand="{Binding TapMenuCommand}"
+                        MenuIsOpen="{Binding MenuIsOpen}"
+                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
+                        ZIndex="1"/>
+      <ScrollView ZIndex="0" VerticalOptions="FillAndExpand" >
+      <Grid  Margin="20,100,15,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="70"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid >
+          <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120"/>
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0"
+                 Text="From"
+                 TextColor="#BDBDBD"
+                 VerticalOptions="Center"
+                 FontSize="25"
+                 FontFamily="ChicagoRegular"/>
+
+          <Frame Grid.Column="1"
+                 CornerRadius="10"
+                 BorderColor="Transparent"
+                 VerticalOptions="Start"
+                 BackgroundColor="#333"
+                 Padding="10,0,10,0"
+                 HeightRequest="40"
+                 WidthRequest="100" >
+            <DatePicker  Format="dd.MM.yyyy"
+                         TextColor="#BDBDBD"
+                         FontSize="20"
+                         FontFamily="ChicagoRegular"/>
+          </Frame>
+          <Label Grid.Column="2"
+                 Text="To"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 TextColor="#BDBDBD"
+                 FontSize="25"
+                 FontFamily="ChicagoRegular"/>
+
+          <Frame Grid.Column="3"
+                 CornerRadius="10"
+                 HorizontalOptions="End"
+                 BorderColor="Transparent"
+                 VerticalOptions="Start"
+                 BackgroundColor="#333"
+                 Padding="10,0,10,0"
+                 HeightRequest="40"
+                 WidthRequest="100" >
+            <DatePicker Format="dd.MM.yyyy"
+                        TextColor="#BDBDBD"
+                        FontSize="20"
+                        FontFamily="ChicagoRegular"/>
+          </Frame>
+        </Grid>
 
 
+        <Frame Grid.Row="1" CornerRadius="0" BackgroundColor="#C8C8C8" BorderColor="Transparent" Padding="15,10,15,10">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="50"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls:SearchEntryPFX Grid.Row="0" Placeholder="Search payment"/>
+            <ScrollView Grid.Row="1">
+              <CollectionView
+                Margin="0,0,0,0"
+                VerticalOptions="FillAndExpand"
+                SelectionMode="None"
+                x:Name="SearchItemsCollection"
+                ItemsSource="{Binding SearchPaymentsNameList, Mode=TwoWay}">
+                <CollectionView.ItemTemplate>
+                  <DataTemplate>
+                    <Grid Margin="0,3,0,0">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="29"/>
+                        <RowDefinition Height="1"/>
+                      </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                      </Grid.ColumnDefinitions>
+                      <Image Source="active_checkbox.png"
+                             IsVisible="{Binding IsSelected}"
+                             VerticalOptions="End"
+                             Margin="0,0,0,6"
+                             HorizontalOptions="Start"
+                             Grid.Column="0"
+                             Grid.Row="0">
+                        <Image.GestureRecognizers>
+                          <TapGestureRecognizer Command="{Binding ImageTapCommand}"/>
+                        </Image.GestureRecognizers>
+                      </Image>
+                      <Image Source="unactive_checkbox.png"
+                             VerticalOptions="End"
+                             Margin="0,0,0,6"
+                             HorizontalOptions="Start"
+                             Grid.Column="0"
+                             Grid.Row="0">
+                        <Image.GestureRecognizers>
+                          <TapGestureRecognizer Command="{Binding ImageTapCommand}"/>
+                        </Image.GestureRecognizers>
+                        <Image.Triggers>
+                          <DataTrigger TargetType="Image" Binding="{Binding IsSelected}" Value="True" >
+                            <Setter Property="IsVisible" Value="False" />
+                          </DataTrigger>
+                          <DataTrigger TargetType="Image" Binding="{Binding IsSelected}" Value="False" >
+                            <Setter Property="IsVisible" Value="True" />
+                          </DataTrigger>
+                        </Image.Triggers>
+                      </Image>
+                      <Label Grid.Column="1" Grid.Row="0"
+                       Text="{Binding PaymentName}"
+                       TextColor="#000"
+                       FontSize="25"
+                       FontFamily="ChicagoRegular"/>
+                      <Line BackgroundColor="#110101"
+                        HeightRequest="0.5"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1" />
+                    </Grid>
+                  </DataTemplate>
+                </CollectionView.ItemTemplate>
+              </CollectionView>
+            </ScrollView>
+          </Grid>
+        </Frame>
+
+          <CollectionView
+             Grid.Row="2"
+                Margin="0,10,0,0"
+                VerticalOptions="FillAndExpand"
+                SelectionMode="None"
+                x:Name="PaymentHistoryCollection"
+                
+                ItemsSource="{Binding HistoryPaymentList, Mode=TwoWay}">
+            <CollectionView.ItemTemplate>
+              <DataTemplate>
+
+                <Frame CornerRadius="0"
+                   Margin="0,5,0,0"
+                   Padding="10,0,10,5"
+                   BorderColor="Transparent">
+
+                  <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding IsEvenItem}" Value="True" >
+                      <Setter Property="BackgroundColor" Value="#241E1E" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Frame" Binding="{Binding IsEvenItem}" Value="False" >
+                      <Setter Property="BackgroundColor" Value="#554F4F" />
+                    </DataTrigger>
+                  </Frame.Triggers>
+                  <StackLayout>
+                    <Grid HeightRequest="50">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="50"/>
+                      </Grid.ColumnDefinitions>
+                      <Label Grid.Column="0" Text="+"
+                           TextColor="#BDBDBD"
+                           VerticalOptions="Center"
+                           Padding="0,-5,0,0"
+                           Margin="0,0,0,0"
+                           FontFamily="ChicagoRegular"
+                           FontSize="50" >
+                        <Label.Triggers>
+                          <DataTrigger  TargetType="Label"
+                              Binding="{Binding IsExpanded}"
+                              Value="True">
+                            <Setter Property="Text" Value="-" />
+                          </DataTrigger>
+                          <DataTrigger  TargetType="Label"
+                              Binding="{Binding IsExpanded}"
+                              Value="False">
+                            <Setter Property="Text" Value="+" />
+                          </DataTrigger>
+                        </Label.Triggers>
+
+                        <Label.GestureRecognizers>
+                          <TapGestureRecognizer  Command="{Binding ExpandSwitchTappedCommand}"/>
+                        </Label.GestureRecognizers>
+
+                      </Label>
+
+                      <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       TextColor="#BDBDBD"
+                       VerticalOptions="Center"
+                       FontFamily="ChicagoRegular" FontSize="25"/>
+
+                      <Label Grid.Column="2"
+                       Text="{Binding Amount}"
+                       TextColor="#BDBDBD"
+                       VerticalOptions="Center"
+                       Padding="0,0,5,0"
+                       FontFamily="ChicagoRegular" FontSize="25"/>
+
+                      <Label Grid.Column="3"
+                       Text="{Binding Currency}"
+                       TextColor="#BDBDBD"
+                       VerticalOptions="Center"
+                       Padding="0,0,5,0"
+                       FontFamily="ChicagoRegular" FontSize="25"/>
+
+                    </Grid>
+
+                    <historyPaymentControls:HistoryPaymentControl
+                        VerticalOptions="FillAndExpand"
+                        IsExpanded="{Binding IsExpanded}"
+                        PaymentsList="{Binding PaymentsList}"
+                        Currency="{Binding Currency}"
+                        />
+
+
+                  </StackLayout>
+                </Frame>
+              </DataTemplate>
+            </CollectionView.ItemTemplate>
+          </CollectionView>
+
+        </Grid>
+      </ScrollView>
+
+    </Grid>
+
+
+  </ContentPage.Content>
 
 </views:BasePage>

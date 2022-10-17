@@ -68,6 +68,7 @@
     <None Remove="Resources\Fonts\chicago_regular.ttf" />
     <None Remove="Resources\Fonts\chiller_regular.ttf" />
     <None Remove="Resources\Fonts\digital7_mono.ttf" />
+    <None Remove="Resources\Images\active_checkbox.png" />
     <None Remove="Resources\Images\analytics.png" />
     <None Remove="Resources\Images\analytics_selected.png" />
     <None Remove="Resources\Images\back_button_image.png" />
@@ -86,6 +87,7 @@
     <None Remove="Resources\Images\remove_counter_icon.png" />
     <None Remove="Resources\Images\settings.png" />
     <None Remove="Resources\Images\settings_selected.png" />
+    <None Remove="Resources\Images\unactive_checkbox.png" />
     <None Remove="Resources\Splash\splash.svg" />
   </ItemGroup>
 
@@ -164,6 +166,12 @@
     <MauiXaml Update="Controls\BlackBackButtonPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Controls\HistoryPaymentList\CountersHistoryPayment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Controls\HistoryPaymentList\HistoryPaymentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Controls\MenuPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
@@ -171,6 +179,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Controls\PaymentsList\CounterValues.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Controls\SearchEntryPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Controls\WhiteEntryPFX.xaml">
