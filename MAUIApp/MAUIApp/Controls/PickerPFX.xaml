@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PayForXatu.MAUIApp.Controls.PickerPFX"
+             x:Name="this">
+  <Frame 
+    CornerRadius="10"
+    BorderColor="Transparent"
+    BackgroundColor="#C8C8C8"
+    Padding="10,0,10,0"
+    HeightRequest="40" >
+    <Frame.GestureRecognizers>
+      <TapGestureRecognizer
+        Tapped="TapGestureRecognizer_Tapped"/>
+    </Frame.GestureRecognizers>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="40"/>
+      </Grid.ColumnDefinitions>
+      <Label
+         Grid.Column="0"
+         Margin="5,0,0,0"
+         VerticalOptions="Center"
+         BindingContext="{x:Reference this}"
+         Text="{Binding SelectedItem, Mode=TwoWay}"
+         TextColor="#333"
+         FontSize="25"
+         FontFamily="ChicagoRegular"/>
+      <Image
+         Source="picker_icon.png"
+         Grid.Column="1"/>
+    </Grid>
+  </Frame>
+</ContentView>

@@ -33,4 +33,11 @@ public partial class SearchEntryPFX : ContentView
         get => (bool)GetValue(IsPasswordProperty);
         set => SetValue(IsPasswordProperty, value);
     }
+
+    public event EventHandler<TextChangedEventArgs> TextChanged;
+
+    private void EntryPFX_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        TextChanged.Invoke(sender, e);
+    }
 }

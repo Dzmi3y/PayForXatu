@@ -18,6 +18,7 @@
                 IsPassword="{Binding IsPassword,Mode=TwoWay}"
                 Margin="0,0,0,0"
                 Background="#FFF"
+                TextChanged="EntryPFX_TextChanged"
                 Keyboard="{Binding Keyboard}"
                 TextColor="#000"
                 PlaceholderColor="#797676"

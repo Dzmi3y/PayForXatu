@@ -3,14 +3,91 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.AnalyticsPage"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
-             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views;assembly=Pulse.Mobile"
+             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
-  <controls:MenuPFX Title="{Binding Title}"
-                    TapMenuCommand="{Binding TapMenuCommand}"
-                    MenuIsOpen="{Binding MenuIsOpen}"
-                    FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <controls:MenuPFX Title="{Binding Title}"
+                        TapMenuCommand="{Binding TapMenuCommand}"
+                        MenuIsOpen="{Binding MenuIsOpen}"
+                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
+                        ZIndex="1"/>
+    <ScrollView ZIndex="0" VerticalOptions="FillAndExpand" >
+      <Grid  Margin="20,100,15,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="70"/>
+          <RowDefinition Height="70"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid >
+          <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120"/>
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0"
+                 Text="From"
+                 TextColor="#BDBDBD"
+                 VerticalOptions="Center"
+                 FontSize="25"
+                 FontFamily="ChicagoRegular"/>
+
+          <Frame Grid.Column="1"
+                 CornerRadius="10"
+                 BorderColor="Transparent"
+                 VerticalOptions="Start"
+                 BackgroundColor="#333"
+                 Padding="10,0,10,0"
+                 HeightRequest="40"
+                 WidthRequest="100" >
+            <DatePicker  Format="dd.MM.yyyy"
+                         TextColor="#BDBDBD"
+                         FontSize="20"
+                         Date="{Binding StartDate}"
+                         FontFamily="ChicagoRegular"/>
+          </Frame>
+          <Label Grid.Column="2"
+                 Text="To"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 TextColor="#BDBDBD"
+                 FontSize="25"
+                 FontFamily="ChicagoRegular"/>
+
+          <Frame Grid.Column="3"
+                 CornerRadius="10"
+                 HorizontalOptions="End"
+                 BorderColor="Transparent"
+                 VerticalOptions="Start"
+                 BackgroundColor="#333"
+                 Padding="10,0,10,0"
+                 HeightRequest="40"
+                 WidthRequest="100" >
+            <DatePicker Format="dd.MM.yyyy"
+                        TextColor="#BDBDBD"
+                        FontSize="20"
+                        Date="{Binding EndDate}"
+                        FontFamily="ChicagoRegular"/>
+          </Frame>
+        </Grid>
+        <controls:PickerPFX
+          Grid.Row="1"
+          Grid.ColumnSpan="3"
+          Collection="{Binding PaymentsNamesList}"
+          SelectedItem="{Binding SelectedItem}"/>
+
+
+      </Grid>
+    </ScrollView>
+  </Grid>
 
 
 

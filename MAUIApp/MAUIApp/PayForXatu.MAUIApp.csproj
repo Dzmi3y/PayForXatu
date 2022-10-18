@@ -84,6 +84,7 @@
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\home_selected.png" />
     <None Remove="Resources\Images\logout.png" />
+    <None Remove="Resources\Images\picker_icon.png" />
     <None Remove="Resources\Images\remove_counter_icon.png" />
     <None Remove="Resources\Images\settings.png" />
     <None Remove="Resources\Images\settings_selected.png" />
@@ -132,6 +133,9 @@
     <Compile Update="Controls\BlackBackButtonPFX.xaml.cs">
       <DependentUpon>BlackBackButtonPFX.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Controls\PickerModalPFX.xaml.cs">
+      <DependentUpon>PickerModalPFX.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Controls\PaymentsList\CounterValues.xaml.cs">
       <DependentUpon>CounterValues.xaml</DependentUpon>
     </Compile>
@@ -175,10 +179,16 @@
     <MauiXaml Update="Controls\MenuPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Controls\PickerModalPFX.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Controls\PaymentsList\CountersCountrol.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Controls\PaymentsList\CounterValues.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Controls\PickerPFX.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Controls\SearchEntryPFX.xaml">
