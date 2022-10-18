@@ -18,22 +18,22 @@
           <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
           </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="50"/>
           </Grid.ColumnDefinitions>
           <Label Grid.Column="0" Grid.Row="0"
-            Text="{Binding Title}"
+            Text="{Binding PaymentName}"
             TextColor="#FFF"
             Margin="3,0,0,0"
             VerticalOptions="Center"
             FontFamily="ChicagoRegular" FontSize="20"/>
 
           <Label Grid.Column="1" Grid.Row="0"
-            Text="{Binding PaymentAmountValue}"
+            Text="{Binding Amount}"
             TextColor="#FFF"
             VerticalOptions="Center"
             FontFamily="ChicagoRegular" FontSize="20"/>
@@ -48,11 +48,12 @@
             <historyPaymentControls:CountersHistoryPayment
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            CounterValues="{Binding CounterValues}"
+            CounterValues="{Binding Counters}"
             />
           <Line BackgroundColor="#110101"
            HeightRequest="0.5"
-           Grid.ColumnSpan="2"
+           Margin="0,5,0,0"
+           Grid.ColumnSpan="3"
            Grid.Row="2" />
 
         </Grid>

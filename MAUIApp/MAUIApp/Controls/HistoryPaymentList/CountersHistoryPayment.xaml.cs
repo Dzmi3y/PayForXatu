@@ -1,3 +1,4 @@
+using PayForXatu.Database.Models;
 using PayForXatu.MAUIApp.Models;
 using System.Collections.ObjectModel;
 
@@ -11,12 +12,12 @@ public partial class CountersHistoryPayment : ContentView
 	}
 
     public static readonly BindableProperty CounterValuesProperty = BindableProperty.Create(
-       "CounterValues", typeof(ObservableCollection<CounterValueModel>),
-       typeof(ObservableCollection<CounterValueModel>), new ObservableCollection<CounterValueModel>());
+       "CounterValues", typeof(List<Counter>),
+       typeof(List<Counter>), new List<Counter>());
 
-    public ObservableCollection<CounterValueModel> CounterValues
+    public List<Counter> CounterValues
     {
-        get => (ObservableCollection<CounterValueModel>)GetValue(CounterValuesProperty);
+        get => (List<Counter>)GetValue(CounterValuesProperty);
         set => SetValue(CounterValuesProperty, value);
     }
 }

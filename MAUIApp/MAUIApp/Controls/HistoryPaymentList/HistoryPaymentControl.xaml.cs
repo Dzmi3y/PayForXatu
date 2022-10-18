@@ -1,4 +1,5 @@
 using Android.Icu.Util;
+using PayForXatu.Database.Models;
 using PayForXatu.MAUIApp.Models;
 using System.Collections.ObjectModel;
 
@@ -12,12 +13,12 @@ public partial class HistoryPaymentControl : ContentView
 	}
 
     public static readonly BindableProperty PaymentsListProperty = BindableProperty.Create(
-    "PaymentsList", typeof(ObservableCollection<PaymentModel>),
-    typeof(ObservableCollection<PaymentModel>), new ObservableCollection<PaymentModel>());
+    "PaymentsList", typeof(ObservableCollection<Payment>),
+    typeof(ObservableCollection<Payment>), new ObservableCollection<Payment>());
 
-    public ObservableCollection<PaymentModel> PaymentsList
+    public ObservableCollection<Payment> PaymentsList
     {
-        get => (ObservableCollection<PaymentModel>)GetValue(PaymentsListProperty);
+        get => (ObservableCollection<Payment>)GetValue(PaymentsListProperty);
         set => SetValue(PaymentsListProperty, value);
     }
 

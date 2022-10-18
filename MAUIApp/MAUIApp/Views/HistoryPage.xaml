@@ -53,6 +53,7 @@
             <DatePicker  Format="dd.MM.yyyy"
                          TextColor="#BDBDBD"
                          FontSize="20"
+                         Date="{Binding StartDate}"
                          FontFamily="ChicagoRegular"/>
           </Frame>
           <Label Grid.Column="2"
@@ -75,6 +76,7 @@
             <DatePicker Format="dd.MM.yyyy"
                         TextColor="#BDBDBD"
                         FontSize="20"
+                        Date="{Binding EndDate}"
                         FontFamily="ChicagoRegular"/>
           </Frame>
         </Grid>
@@ -154,7 +156,7 @@
           <CollectionView
              Grid.Row="2"
                 Margin="0,10,0,0"
-                VerticalOptions="FillAndExpand"
+                VerticalOptions="Fill"
                 SelectionMode="None"
                 x:Name="PaymentHistoryCollection"
                 
@@ -180,7 +182,7 @@
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="50"/>
                       </Grid.ColumnDefinitions>
                       <Label Grid.Column="0" Text="+"

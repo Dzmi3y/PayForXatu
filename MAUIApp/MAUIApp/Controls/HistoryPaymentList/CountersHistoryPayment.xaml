@@ -4,7 +4,7 @@
              x:Class="PayForXatu.MAUIApp.Controls.HistoryPaymentList.CountersHistoryPayment"
              x:Name="this">
   <CollectionView
-    Margin="0,10,0,0"
+    Margin="0,0,0,0"
     VerticalOptions="FillAndExpand"
     SelectionMode="None"
     x:Name="PaymentHistoryCollection"
@@ -19,13 +19,13 @@
             <ColumnDefinition Width="50"/>
           </Grid.ColumnDefinitions>
           <Label Grid.Column="0" Grid.Row="0"
-            Text="{Binding Title}"
+            Text="{Binding CounterName}"
             TextColor="#BDBDBD"
-            Margin="15,0,0,0"
+            Margin="15,10,0,0"
             VerticalOptions="Center"
             FontFamily="ChicagoRegular" FontSize="18"/>
           <Label Grid.Column="1" Grid.Row="0"
-            Text="{Binding Value}"
+            Text="{Binding CounterValue}"
             TextColor="#BDBDBD"
             VerticalOptions="Center"
             HorizontalOptions="Start"

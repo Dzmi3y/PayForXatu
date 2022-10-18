@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using Java.Nio.FileNio;
+using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.Services;
+using PayForXatu.Database.Models;
 using PayForXatu.MAUIApp.Controls.PaymentsList;
 using PayForXatu.MAUIApp.Models;
 using PayForXatu.MAUIApp.Views;
@@ -7,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,118 +20,74 @@ namespace PayForXatu.MAUIApp.ViewModels
     public class HistoryPageViewModel : ViewModelBase
     {
         private ObservableCollection<SearchPaymentItemModel> _searchPaymentsNameList;
-        private ObservableCollection<HistoryPaymentItem> _historyPaymentList;
+        private ObservableCollection<HistoryPaymentItemModel> _historyPaymentList;
+        private IHistoryPaymentService _historyPaymentService;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private bool _dateIsSetup;
         public HistoryPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
-            ICurrencyService currencyService)
+            ICurrencyService currencyService, IHistoryPaymentService historyPaymentService)
             : base(navigationService, memoryCache,currencyService)
         {
             Title = "History";
-            HistoryPaymentList = new ObservableCollection<HistoryPaymentItem>();
+            
+            HistoryPaymentList = new ObservableCollection<HistoryPaymentItemModel>();
             SearchPaymentsNameList = new ObservableCollection<SearchPaymentItemModel>();
+            _historyPaymentService = historyPaymentService;
 
-            Init();
+            _dateIsSetup = false;
+            StartDate = DateTime.Now.AddMonths(-2);
+            EndDate = DateTime.Now;
+            _dateIsSetup = true;
+
+            _ = LoadPaymentNamesListAsync();
         }
 
-        private void Init()
+        private async Task LoadPaymentNamesListAsync()
         {
-
-            SearchPaymentsNameList.Add(new SearchPaymentItemModel() { IsSelected = true, PaymentName = "First payment" });
-            SearchPaymentsNameList.Add(new SearchPaymentItemModel() { IsSelected = false, PaymentName = "Second payment" });
-
-            var cv = new ObservableCollection<CounterValueModel>();
-            cv.Add(new CounterValueModel()
-            {
-                Title = "Counter #1",
-                Value = 5
-            });
-            cv.Add(new CounterValueModel()
-            {
-                Title = "Counter #2",
-                Value = 6
-            });
-            var cv2 = new ObservableCollection<CounterValueModel>();
-            cv2.Add(new CounterValueModel()
-            {
-                Title = "Counter #1",
-                Value = 7
-            });
-
-
-            var pl = new ObservableCollection<PaymentModel>();
-            pl.Add(new PaymentModel()
-            {
-                Title = "First Payment",
-                CounterValues = cv
-            });
-            pl.Add(new PaymentModel()
-            {
-                Title = "Second Payment",
-                CounterValues = cv2
-            });
-
-            var t = new HistoryPaymentItem()
-            {
-                Title = DateTime.Now.ToString("dd.MM.yyyy"),
-                Currency = CurrentUser.UserSettings.Currency.Name,
-                IsExpanded = false,
-                Amount = 23,
-                PaymentsList = pl,
-                SequenceNumber = 0
-            };
-
-
-            var cv21 = new ObservableCollection<CounterValueModel>();
-            cv21.Add(new CounterValueModel()
-            {
-                Title = "Counter #1",
-                Value = 9
-            });
-            cv21.Add(new CounterValueModel()
-            {
-                Title = "Counter #2",
-                Value = 10
-            });
-            var cv22 = new ObservableCollection<CounterValueModel>();
-            cv22.Add(new CounterValueModel()
-            {
-                Title = "Counter #1",
-                Value = 11
-            });
-            cv22.Add(new CounterValueModel()
-            {
-                Title = "Counter #2",
-                Value = 22
-            });
-
-
-            var pl2 = new ObservableCollection<PaymentModel>();
-            pl2.Add(new PaymentModel()
-            {
-                Title = "First Payment",
-                CounterValues = cv21
-            });
-            pl2.Add(new PaymentModel()
-            {
-                Title = "Second Payment",
-                CounterValues = cv22
-            });
-
-
-            var t2 = new HistoryPaymentItem()
-            {
-                Title = DateTime.Today.AddDays(-1).ToString("dd.MM.yyyy"),
-                Currency = CurrentUser.UserSettings.Currency.Name,
-                IsExpanded = false,
-                Amount = 46,
-                PaymentsList = pl2,
-                SequenceNumber = 1
-            };
-
-
-            HistoryPaymentList.Add(t);
-            HistoryPaymentList.Add(t2);
+            if (!_dateIsSetup)
+                return;
+            var paymentNamesList = await _historyPaymentService.GetPaymentNamesAsync(CurrentUser.UserId);
+            SearchPaymentsNameList.Clear();
+            paymentNamesList.ForEach(x=>
+                SearchPaymentsNameList.Add(
+                    new SearchPaymentItemModel()
+                        {
+                            IsSelected=false,
+                            PaymentName=x,
+                            Switched= async () => { await LoadPaymentsHistory(); }
+                    }));
+            await LoadPaymentsHistory();
         }
 
+        private async Task LoadPaymentsHistory()
+        {
+            var selectedPaymentsNames = SearchPaymentsNameList.Where(x=>x.IsSelected)
+                  .Select(x=>x.PaymentName)
+                  .ToList();
+
+             var paymentHistoryDictionarey = await _historyPaymentService
+                .GetPaymentsByNameAndPeriodListAsync(CurrentUser.UserId,
+                        StartDate, EndDate, selectedPaymentsNames);
+
+
+            HistoryPaymentList= new ObservableCollection<HistoryPaymentItemModel>();
+
+            int i = 0;
+            foreach (var currentItem in paymentHistoryDictionarey)
+            { 
+                var newItem = new HistoryPaymentItemModel();
+                newItem.Title = currentItem.Key.ToString("dd.MM.yyyy");
+                newItem.Currency = CurrentUser.UserSettings.Currency.Name;
+                newItem.PaymentsList = new ObservableCollection<Payment>();
+                currentItem.Value.ForEach(p=>newItem.PaymentsList.Add(p));
+                newItem.Amount = 0;
+                currentItem.Value.ForEach(p => newItem.Amount += p.Amount);
+                newItem.SequenceNumber = i++;
+
+                HistoryPaymentList.Add(newItem);
+            }
+        }
 
         public ObservableCollection<SearchPaymentItemModel> SearchPaymentsNameList
         {
@@ -138,7 +98,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             }
         }
 
-        public ObservableCollection<HistoryPaymentItem> HistoryPaymentList
+        public ObservableCollection<HistoryPaymentItemModel> HistoryPaymentList
         {
             get { return _historyPaymentList; }
             set
@@ -147,107 +107,23 @@ namespace PayForXatu.MAUIApp.ViewModels
             }
         }
 
-    }
-
-
-    public class SearchPaymentItemModel : BindableBase
-    {
-        private bool _isSelected;
-
-        public SearchPaymentItemModel()
+        public DateTime StartDate
         {
-            ImageTapCommand = new Command(()=>IsSelected=!IsSelected);
+            get { return _startDate; }
+            set {
+                SetProperty(ref _startDate, value);
+                _ = LoadPaymentsHistory();
+            }
         }
 
-        public string PaymentName { get; set; }
-
-        public ICommand ImageTapCommand { get; set; }
-
-        public bool IsSelected
+        public DateTime EndDate
         {
-            get { return _isSelected; }
-            set
-            {
-                SetProperty(ref _isSelected, value);
+            get { return _endDate; }
+            set {
+                SetProperty(ref _endDate, value);
+                _ = LoadPaymentsHistory();
             }
         }
 
     }
-
-    public class HistoryPaymentItem : BindableBase
-    {
-        private string _title;
-        private string _currency;
-        private double _amount;
-        private bool _isExpanded;
-        private bool _isEvenItem;
-        private int _sequenceNumber;
-        private ObservableCollection<PaymentModel> _paymentsList;
-
-        public HistoryPaymentItem()
-        {
-            ExpandSwitchTappedCommand = new Command(() => { IsExpanded = !IsExpanded; });
-            PaymentsList = new ObservableCollection<PaymentModel>();
-        }
-
-        public ICommand ExpandSwitchTappedCommand { get; set; }
-
-        public bool IsEvenItem
-        {
-            get { return _isEvenItem; }
-            private set { SetProperty(ref _isEvenItem, value); }
-        }
-
-        public int SequenceNumber
-        {
-            get { return _sequenceNumber; }
-            set
-            {
-                SetProperty(ref _sequenceNumber, value);
-                IsEvenItem = value % 2 == 0;
-            }
-        }
-        public ObservableCollection<PaymentModel> PaymentsList
-        {
-            get { return _paymentsList; }
-            set
-            {
-                SetProperty(ref _paymentsList, value);
-            }
-        }
-
-        public bool IsExpanded
-        {
-            get { return _isExpanded; }
-            set { SetProperty(ref _isExpanded, value); }
-        }
-
-        public double Amount
-        {
-            get { return _amount; }
-            set
-            {
-                SetProperty(ref _amount, value);
-            }
-        }
-        public string Currency
-        {
-            get { return _currency; }
-            set
-            {
-                SetProperty(ref _currency, value);
-            }
-        }
-
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                SetProperty(ref _title, value);
-            }
-        }
-
-    }
-
 }
