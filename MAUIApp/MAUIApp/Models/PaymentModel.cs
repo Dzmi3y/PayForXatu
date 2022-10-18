@@ -28,11 +28,7 @@ namespace PayForXatu.MAUIApp.Models
         public ObservableCollection<CounterValueModel> CounterValues
         {
             get { return _counterValues; }
-            set
-            {
-                SetProperty(ref _counterValues, value);
-                value.ToList().ForEach(x => x.ValueWasChangedEvent += OnChangedValue);
-            }
+            set { SetProperty(ref _counterValues, value);}
         }
 
         public bool IsEvenItem
@@ -75,15 +71,6 @@ namespace PayForXatu.MAUIApp.Models
                 SetProperty(ref _paymentAmountValue, value);
                 IsFilledIn = value > 0;
             }
-        }
-
-        public void CounterValuesWasUpdated()
-        {
-            CounterValues.ToList().ForEach(x => x.ValueWasChangedEvent += OnChangedValue);
-        }
-        public void OnChangedValue()
-        {
-            PaymentAmountValue = CounterValues.Select(x => x.Value).Sum();
         }
         public void ClearCounters()
         {

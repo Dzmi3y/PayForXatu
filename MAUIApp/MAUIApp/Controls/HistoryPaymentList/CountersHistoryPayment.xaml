@@ -4,7 +4,7 @@
              x:Class="PayForXatu.MAUIApp.Controls.HistoryPaymentList.CountersHistoryPayment"
              x:Name="this">
   <CollectionView
-    Margin="0,0,0,0"
+    Margin="0,7,0,0"
     VerticalOptions="FillAndExpand"
     SelectionMode="None"
     x:Name="PaymentHistoryCollection"

@@ -20,11 +20,13 @@ namespace PayForXatu.MAUIApp.ViewModels
     public class HistoryPageViewModel : ViewModelBase
     {
         private ObservableCollection<SearchPaymentItemModel> _searchPaymentsNameList;
+        private ObservableCollection<SearchPaymentItemModel> _viewSearchPaymentsNameList;
         private ObservableCollection<HistoryPaymentItemModel> _historyPaymentList;
         private IHistoryPaymentService _historyPaymentService;
         private DateTime _startDate;
         private DateTime _endDate;
         private bool _dateIsSetup;
+        private string _searchKey;
         public HistoryPageViewModel(INavigationService navigationService, IMemoryCache memoryCache,
             ICurrencyService currencyService, IHistoryPaymentService historyPaymentService)
             : base(navigationService, memoryCache,currencyService)
@@ -57,6 +59,7 @@ namespace PayForXatu.MAUIApp.ViewModels
                             PaymentName=x,
                             Switched= async () => { await LoadPaymentsHistory(); }
                     }));
+            ViewSearchPaymentsNameList = SearchPaymentsNameList;
             await LoadPaymentsHistory();
         }
 
@@ -89,6 +92,23 @@ namespace PayForXatu.MAUIApp.ViewModels
             }
         }
 
+        private void Search()
+        {
+            ViewSearchPaymentsNameList = SearchPaymentsNameList
+                .Where(x => x.PaymentName.Contains(SearchKey))
+                .ToObservableCollection();
+        }
+        
+        public ObservableCollection<SearchPaymentItemModel> ViewSearchPaymentsNameList
+        {
+            get { return _viewSearchPaymentsNameList; }
+            set
+            {
+                SetProperty(ref _viewSearchPaymentsNameList, value);
+            }
+        }
+
+
         public ObservableCollection<SearchPaymentItemModel> SearchPaymentsNameList
         {
             get { return _searchPaymentsNameList; }
@@ -104,6 +124,16 @@ namespace PayForXatu.MAUIApp.ViewModels
             set
             {
                 SetProperty(ref _historyPaymentList, value);
+            }
+        }
+
+        public string SearchKey
+        {
+            get { return _searchKey; }
+            set
+            {
+                SetProperty(ref _searchKey, value);
+                Search();
             }
         }
 

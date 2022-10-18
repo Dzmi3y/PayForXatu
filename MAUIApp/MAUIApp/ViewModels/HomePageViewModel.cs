@@ -214,7 +214,6 @@ namespace PayForXatu.MAUIApp.ViewModels
                 if (string.IsNullOrEmpty(_selectedCounter.CounterValues[i].Title))
                     _selectedCounter.CounterValues[i].Title =$"Counter #{i}";
             }
-            _selectedCounter.CounterValuesWasUpdated();
 
             if (IsEditMode)
             {

@@ -88,14 +88,14 @@
               <RowDefinition Height="50"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <controls:SearchEntryPFX Grid.Row="0" Placeholder="Search payment"/>
+            <controls:SearchEntryPFX Text="{Binding SearchKey, Mode=TwoWay}" Grid.Row="0" Placeholder="Search payment"/>
             <ScrollView Grid.Row="1">
               <CollectionView
                 Margin="0,0,0,0"
                 VerticalOptions="FillAndExpand"
                 SelectionMode="None"
                 x:Name="SearchItemsCollection"
-                ItemsSource="{Binding SearchPaymentsNameList, Mode=TwoWay}">
+                ItemsSource="{Binding ViewSearchPaymentsNameList, Mode=TwoWay}">
                 <CollectionView.ItemTemplate>
                   <DataTemplate>
                     <Grid Margin="0,3,0,0">
