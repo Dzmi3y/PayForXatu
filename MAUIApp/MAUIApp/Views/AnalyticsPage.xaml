@@ -4,9 +4,11 @@
              x:Class="PayForXatu.MAUIApp.Views.AnalyticsPage"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
              xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
+
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
@@ -17,7 +19,7 @@
                         FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
                         ZIndex="1"/>
     <ScrollView ZIndex="0" VerticalOptions="FillAndExpand" >
-      <Grid  Margin="20,100,15,0">
+      <Grid x:Name="Grid1"  Margin="20,100,15,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="70"/>
           <RowDefinition Height="70"/>
@@ -83,11 +85,16 @@
           Grid.ColumnSpan="3"
           Collection="{Binding PaymentsNamesList}"
           SelectedItem="{Binding SelectedItem}"/>
-
-
+        <ScrollView  Grid.Row="2" Orientation="Horizontal">
+          <GraphicsView 
+                      Drawable="{Binding Graphics}"
+                      HeightRequest="500"
+                      WidthRequest="{Binding GraphicsWidth}" />
+        </ScrollView>
       </Grid>
     </ScrollView>
   </Grid>
+
 
 
 

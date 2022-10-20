@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace PayForXatu.MAUIApp
 {
@@ -14,6 +15,7 @@ namespace PayForXatu.MAUIApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder()
+           .UseSkiaSharp()
            .UseMauiApp<App>()
            .UseMauiCommunityToolkit()
            .UsePrism(prism => PrismStartup.Configure(prism))

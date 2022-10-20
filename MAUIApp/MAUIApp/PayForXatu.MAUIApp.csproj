@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-android;net6.0-maccatalyst</TargetFrameworks>
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
     <!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
     <GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
@@ -13,7 +12,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 
     <!-- Display name -->
-    <ApplicationTitle>MAUIApp</ApplicationTitle>
+    <ApplicationTitle>Pay For Xatu</ApplicationTitle>
 
     <!-- App Identifier -->
     <ApplicationId>com.companyname.mauiapp</ApplicationId>
@@ -35,7 +34,7 @@
 
   <ItemGroup>
     <!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#FFFFFF" />
+    <MauiIcon Include="Resources\AppIcon\appicon.png" />
     <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#000000">
       <Color>#000000</Color>
     </MauiSplashScreen>
@@ -119,9 +118,14 @@
     <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.501" />
+    <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="6.0.501" />
     <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
     <PackageReference Include="Prism.Maui" Version="8.1.273-pre" />
     <PackageReference Include="Prism.Maui.Rx" Version="8.1.273-pre" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.3" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.3" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.3" />
   </ItemGroup>
 
   <ItemGroup>

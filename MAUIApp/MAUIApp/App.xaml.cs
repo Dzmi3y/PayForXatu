@@ -7,7 +7,6 @@ namespace PayForXatu.MAUIApp
         public App()
         {
             InitializeComponent();
-           
         }
     }
 }
