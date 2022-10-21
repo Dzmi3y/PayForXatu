@@ -13,12 +13,8 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <controls:MenuPFX Title="{Binding Title}"
-                        TapMenuCommand="{Binding TapMenuCommand}"
-                        MenuIsOpen="{Binding MenuIsOpen}"
-                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
-                        ZIndex="1"/>
-      <ScrollView ZIndex="0" VerticalOptions="FillAndExpand" >
+
+      <ScrollView VerticalOptions="FillAndExpand" >
       <Grid  Margin="20,100,15,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="70"/>
@@ -49,7 +45,7 @@
                  BackgroundColor="#333"
                  Padding="10,0,10,0"
                  HeightRequest="40"
-                 WidthRequest="100" >
+                 WidthRequest="105" >
             <DatePicker  Format="dd.MM.yyyy"
                          TextColor="#BDBDBD"
                          FontSize="20"
@@ -72,7 +68,7 @@
                  BackgroundColor="#333"
                  Padding="10,0,10,0"
                  HeightRequest="40"
-                 WidthRequest="100" >
+                 WidthRequest="105" >
             <DatePicker Format="dd.MM.yyyy"
                         TextColor="#BDBDBD"
                         FontSize="20"
@@ -250,6 +246,10 @@
         </Grid>
       </ScrollView>
 
+      <controls:MenuPFX Title="{Binding Title}"
+                        TapMenuCommand="{Binding TapMenuCommand}"
+                        MenuIsOpen="{Binding MenuIsOpen}"
+                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
     </Grid>
 
   </ContentPage.Content>

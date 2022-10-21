@@ -1,11 +1,8 @@
-﻿using Java.Sql;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.Database.Models;
-using PayForXatu.MAUIApp.Controls.PaymentsList;
 using PayForXatu.MAUIApp.Models;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace PayForXatu.MAUIApp.ViewModels

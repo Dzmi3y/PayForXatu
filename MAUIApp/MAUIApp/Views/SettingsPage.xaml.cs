@@ -1,5 +1,4 @@
 using CommunityToolkit.Maui.Views;
-using PayForXatu.MAUIApp.Controls;
 using PayForXatu.MAUIApp.Resources;
 using PayForXatu.MAUIApp.ViewModels;
 

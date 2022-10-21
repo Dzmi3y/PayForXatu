@@ -1,13 +1,7 @@
-﻿using Firebase.Auth;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.MAUIApp.Resources;
-using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 
@@ -33,7 +27,6 @@ namespace PayForXatu.MAUIApp.ViewModels
             _okButtonTapCommand = new Command(async () => await OnOkButtonTappedAsync());
 
         }
-
 
         public bool ErrorMessageIsVisible
         {

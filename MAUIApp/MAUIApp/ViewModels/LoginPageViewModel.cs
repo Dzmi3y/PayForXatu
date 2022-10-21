@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using PayForXatu.Database;
 using System.Windows.Input;
 using PayForXatu.BusinessLogic;
 using PayForXatu.BusinessLogic.DTOs;
@@ -90,6 +89,7 @@ namespace PayForXatu.MAUIApp.ViewModels
             if (logInResponseDTO.IsSuccess)
             {
                 SetCurrentUser(logInResponseDTO.CurrentUser);
+
                 await _navigationService.NavigateAsync("NavigationPage/HomePage");
             }
             else

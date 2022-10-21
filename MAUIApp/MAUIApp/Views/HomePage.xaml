@@ -15,12 +15,8 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <controls:MenuPFX Title="{Binding Title}"
-                        TapMenuCommand="{Binding TapMenuCommand}"
-                        MenuIsOpen="{Binding MenuIsOpen}"
-                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
-                        ZIndex="2"/>
-      <Grid ZIndex="0" Padding="0,0,0,0">
+
+      <Grid Padding="0,0,0,0">
         <Grid.RowDefinitions>
           <RowDefinition Height="150"/>
           <RowDefinition Height="*"/>
@@ -80,8 +76,7 @@
 
       </Grid>
 
-
-      <Grid x:Name="EditModeGrid" IsVisible="{Binding EditModeIsVisible}" ZIndex="1" Padding="0,70,0,0" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <Grid x:Name="EditModeGrid" IsVisible="{Binding EditModeIsVisible}" Padding="0,70,0,0" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -205,6 +200,11 @@
 
         </Border>
       </Grid>
+
+      <controls:MenuPFX Title="{Binding Title}"
+                        TapMenuCommand="{Binding TapMenuCommand}"
+                        MenuIsOpen="{Binding MenuIsOpen}"
+                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
     </Grid>
 
   </ContentPage.Content>

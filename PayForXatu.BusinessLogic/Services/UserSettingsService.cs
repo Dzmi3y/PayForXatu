@@ -1,14 +1,8 @@
 ﻿using PayForXatu.Database.Models;
 using PayForXatu.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PayForXatu.BusinessLogic.DTOs;
 using Microsoft.Extensions.Configuration;
 using Firebase.Auth;
-using System.ComponentModel.DataAnnotations;
 
 namespace PayForXatu.BusinessLogic.Services
 {

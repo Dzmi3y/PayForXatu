@@ -1,11 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace PayForXatu.MAUIApp
@@ -33,7 +28,6 @@ namespace PayForXatu.MAUIApp
             var config = new ConfigurationBuilder()
                         .AddJsonStream(stream)
                         .Build();
-           // Task t = PrismStartup.FirebaseInitAsync(config);
             builder.Configuration.AddConfiguration(config);
 
             return builder.Build();

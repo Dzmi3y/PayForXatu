@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PayForXatu.MAUIApp.Views.SettingsPage"
              xmlns:controls="clr-namespace:PayForXatu.MAUIApp.Controls"
-             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views;assembly=Pulse.Mobile"
+             xmlns:views="clr-namespace:PayForXatu.MAUIApp.Views"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              BackgroundColor="Black">
@@ -13,12 +13,8 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <controls:MenuPFX Title="{Binding Title}"
-                        TapMenuCommand="{Binding TapMenuCommand}"
-                        MenuIsOpen="{Binding MenuIsOpen}"
-                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"
-                        ZIndex="1"/>
-      <StackLayout Margin="20,20,20,0" ZIndex="0" Padding="0,70,0,0">
+
+      <StackLayout Margin="20,20,20,0" Padding="0,70,0,0">
         <StackLayout IsVisible="{Binding EmailAndPasswordIsEnabled}">
           <Label
                 Padding="0,0,0,14"
@@ -154,6 +150,10 @@
 
       </StackLayout>
 
+      <controls:MenuPFX Title="{Binding Title}"
+                        TapMenuCommand="{Binding TapMenuCommand}"
+                        MenuIsOpen="{Binding MenuIsOpen}"
+                        FlashlightIsOn="{Binding FlashlightIsOn,Mode=TwoWay}"/>
     </Grid>
 
   </ContentPage.Content>

@@ -1,13 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
-using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
-using Prism.Navigation.Xaml;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace PayForXatu.MAUIApp.ViewModels

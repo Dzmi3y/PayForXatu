@@ -1,17 +1,8 @@
-﻿using Android.App.AppSearch;
-using Java.Security;
-using Javax.Security.Auth;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.DTOs;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.Database.Models;
 using PayForXatu.MAUIApp.Resources;
-using PayForXatu.MAUIApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PayForXatu.MAUIApp.ViewModels

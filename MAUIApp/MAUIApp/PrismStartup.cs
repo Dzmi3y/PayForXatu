@@ -63,8 +63,6 @@ namespace PayForXatu.MAUIApp
             containerRegistry.RegisterScoped<IHistoryPaymentService, HistoryPaymentService>();
             containerRegistry.RegisterScoped<IPaymentService, PaymentService>();
             
-
-
             containerRegistry.RegisterSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));
             containerRegistry.RegisterSingleton<IFirebaseRepository,FirebaseRepository>();
 
