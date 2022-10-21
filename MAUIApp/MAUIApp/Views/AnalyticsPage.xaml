@@ -23,7 +23,9 @@
         <Grid.RowDefinitions>
           <RowDefinition Height="70"/>
           <RowDefinition Height="70"/>
-          <RowDefinition Height="*"/>
+          <RowDefinition Height="200"/>
+          <RowDefinition Height="70"/>
+          <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <Grid >
           <Grid.RowDefinitions>
@@ -47,7 +49,7 @@
                  BorderColor="Transparent"
                  VerticalOptions="Start"
                  BackgroundColor="#333"
-                 Padding="10,0,10,0"
+                 Padding="10,0,5,0"
                  HeightRequest="40"
                  WidthRequest="100" >
             <DatePicker  Format="dd.MM.yyyy"
@@ -70,7 +72,7 @@
                  BorderColor="Transparent"
                  VerticalOptions="Start"
                  BackgroundColor="#333"
-                 Padding="10,0,10,0"
+                 Padding="10,0,5,0"
                  HeightRequest="40"
                  WidthRequest="100" >
             <DatePicker Format="dd.MM.yyyy"
@@ -83,15 +85,29 @@
         <controls:PickerPFX
           Grid.Row="1"
           Grid.ColumnSpan="3"
+          IsVisible="{Binding PaymentsIsVisible}"
           Collection="{Binding PaymentsNamesList}"
-          SelectedItem="{Binding SelectedItem}"/>
-        <ScrollView  Grid.Row="2" Orientation="Horizontal">
+          SelectedItem="{Binding PaymentsNamesSelectedItem, Mode=TwoWay}"/>
+        <ScrollView IsVisible="{Binding PaymentsIsVisible}"  Grid.Row="2" Orientation="Horizontal">
           <GraphicsView 
-                      Drawable="{Binding Graphics}"
-                      HeightRequest="500"
-                      WidthRequest="{Binding GraphicsWidth}" />
+                      Drawable="{Binding PaymentsChart}"
+                      HeightRequest="200"
+                      WidthRequest="{Binding PaymentChartWidth}" />
+        </ScrollView>
+        <controls:PickerPFX
+          Grid.Row="3"
+          Grid.ColumnSpan="3"
+          IsVisible="{Binding CountersIsVisible}"
+          Collection="{Binding CountersNamesList}"
+          SelectedItem="{Binding CountersNamesSelectedItem, Mode=TwoWay}"/>
+        <ScrollView IsVisible="{Binding CountersIsVisible}"  Grid.Row="4" Orientation="Horizontal">
+          <GraphicsView 
+                      Drawable="{Binding CountersChart}"
+                      HeightRequest="200"
+                      WidthRequest="{Binding CounterChartWidth}" />
         </ScrollView>
       </Grid>
+      
     </ScrollView>
   </Grid>
 

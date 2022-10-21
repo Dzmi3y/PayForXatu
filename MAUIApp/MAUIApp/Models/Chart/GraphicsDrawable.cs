@@ -21,7 +21,7 @@ namespace PayForXatu.MAUIApp.Models.Chart
         float _width;
         List<BarInfo> _bars;
 
-        public GraphicsDrawable(List<BarInfo> bars, Color barColor, string currency)
+        public GraphicsDrawable(List<BarInfo> bars, Color barColor, string currency = null)
         {
             _bars = bars;
             _barColor = barColor;

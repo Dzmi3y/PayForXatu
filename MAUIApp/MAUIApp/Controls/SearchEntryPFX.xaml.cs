@@ -4,7 +4,7 @@ public partial class SearchEntryPFX : ContentView
 {
     public SearchEntryPFX()
     {
-        InitializeComponent();
+            InitializeComponent();
     }
 
     public static readonly BindableProperty PlaceholderProperty = BindableProperty.Create(
@@ -38,6 +38,7 @@ public partial class SearchEntryPFX : ContentView
 
     private void EntryPFX_TextChanged(object sender, TextChangedEventArgs e)
     {
-        TextChanged.Invoke(sender, e);
+        if(TextChanged!=null)
+            TextChanged.Invoke(sender, e);
     }
 }

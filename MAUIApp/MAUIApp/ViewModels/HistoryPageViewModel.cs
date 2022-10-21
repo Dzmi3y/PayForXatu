@@ -1,19 +1,10 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
-using Java.Nio.FileNio;
 using Microsoft.Extensions.Caching.Memory;
 using PayForXatu.BusinessLogic.Services;
 using PayForXatu.Database.Models;
-using PayForXatu.MAUIApp.Controls.PaymentsList;
 using PayForXatu.MAUIApp.Models;
-using PayForXatu.MAUIApp.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace PayForXatu.MAUIApp.ViewModels
 {
@@ -41,8 +32,8 @@ namespace PayForXatu.MAUIApp.ViewModels
             StartDate = DateTime.Now.AddMonths(-2);
             EndDate = DateTime.Now;
             _dateIsSetup = true;
-
             _ = LoadPaymentNamesListAsync();
+
         }
 
         private async Task LoadPaymentNamesListAsync()
@@ -70,7 +61,7 @@ namespace PayForXatu.MAUIApp.ViewModels
                   .ToList();
 
              var paymentHistoryDictionarey = await _historyPaymentService
-                .GetPaymentsByNameAndPeriodListAsync(CurrentUser.UserId,
+                .GetPaymentsByNamesListAndPeriodAsync(CurrentUser.UserId,
                         StartDate, EndDate, selectedPaymentsNames);
 
 

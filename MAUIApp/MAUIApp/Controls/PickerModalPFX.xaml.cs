@@ -29,6 +29,13 @@ public partial class PickerModalPFX : Popup
         var selectedItem = ((string)e.CurrentSelection[0]);
         if (_select != null)
             _select.Invoke(selectedItem);
+
+        try
+        {
+            Close();
+        }
+        catch
+        { }
     }
 
     private void SearchEntryPFX_TextChanged(object sender, TextChangedEventArgs e)

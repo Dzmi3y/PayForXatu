@@ -25,20 +25,34 @@ namespace PayForXatu.BusinessLogic.Services
             return result ?? new List<Payment>();
         }
 
-        public async Task<Dictionary<DateTime,List<Payment>>> GetPaymentsByNameAndPeriodListAsync(string userId,
-            DateTime startDate, DateTime endDate, List<string> paymentsDate)
+        public async Task<Dictionary<DateTime,List<Payment>>> GetPaymentsByNamesListAndPeriodAsync(string userId,
+            DateTime startDate, DateTime endDate, List<string> paymentsNames)
         {
-            paymentsDate ??= new List<string>();
+            paymentsNames ??= new List<string>();
 
             var allPayments = await _firebaseRepository.GetListOfChildsAsync<Payment>();
             var result = allPayments.Where(x =>
                              (x.UserId == userId) &&
-                             (paymentsDate.Contains(x.PaymentName) || paymentsDate.Count == 0) &&
+                             (paymentsNames.Contains(x.PaymentName) || paymentsNames.Count == 0) &&
                              ((startDate <= x.Date) && (x.Date <= endDate))
                           ).GroupBy(x => x.Date.Date)
                           .ToDictionary(g=>g.Key,g=>g.ToList());
 
             return result ?? new Dictionary<DateTime, List<Payment>>();
+        }
+
+        public async Task<List<Payment>> GetPaymentHistoryByNameAndPeriodAsync(string userId,
+            DateTime startDate, DateTime endDate, string paymentName)
+        {
+            var allPayments = await _firebaseRepository.GetListOfChildsAsync<Payment>();
+            var result = allPayments.Where(x =>
+                             (x.UserId == userId) &&
+                             (paymentName==x.PaymentName) &&
+                             ((startDate <= x.Date) && (x.Date <= endDate))
+                          ).OrderBy(x => x.Date)
+                          .ToList();
+
+            return result ?? new List<Payment>();
         }
 
 
@@ -73,8 +87,10 @@ namespace PayForXatu.BusinessLogic.Services
         Task<List<Payment>> GetPaymentsAsync(string userId);
         Task AddPaymentAsync(Payment newPaymnet);
         Task AddPaymentsListAsync(List<Payment> newPaymnets);
-        Task<Dictionary<DateTime, List<Payment>>> GetPaymentsByNameAndPeriodListAsync(string userId,
-            DateTime startDate, DateTime endDate, List<string> paymentsDate);
+        Task<Dictionary<DateTime, List<Payment>>> GetPaymentsByNamesListAndPeriodAsync(string userId,
+            DateTime startDate, DateTime endDate, List<string> paymentsNames);
         Task<List<string>> GetPaymentNamesAsync(string userId);
+        Task<List<Payment>> GetPaymentHistoryByNameAndPeriodAsync(string userId,
+            DateTime startDate, DateTime endDate, string paymentName);
     }
 }

@@ -17,8 +17,7 @@ namespace PayForXatu.MAUIApp
         public static void Configure(PrismAppBuilder builder)
         {
             builder.RegisterTypes(RegisterTypes)
-                     //.OnAppStart("NavigationPage/LoginPage");
-                     .OnAppStart("NavigationPage/AnalyticsPage");
+                     .OnAppStart("NavigationPage/LoginPage");
         }
 
         public static async Task FirebaseInitAsync(IConfiguration Configuration)
